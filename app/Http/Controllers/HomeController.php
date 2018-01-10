@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\GalleryEntry;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,7 +15,7 @@ class HomeController extends Controller
     public function __construct()
     {
         //Patikrina ar vartotojas prisijunges, jei neprisijunges uzkrauna logina
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -24,6 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+      $galleryEntries = GalleryEntry::paginate(20);
+      return view('home', compact('galleryEntries'));
     }
 }

@@ -44,14 +44,17 @@ class GalleryEntryController extends Controller
     public function store(StoreGalleryEntryRequest $request)
     {
       $galleryEntry = new GalleryEntry();
+      
       $galleryEntry->title = $request->title;
       $galleryEntry->description = $request->description;
       $galleryEntry->tags = $request->tags;
+
       $name = $request->file('image')->getClientOriginalName();
       $date = new DateTime();
       $request->file('image')->storeAs('public/images', $date->getTimestamp().$name);
       $galleryEntry->image = $date->getTimestamp().$name;
-      $galleryEntry->save();
+
+      Auth::user()->galleryEntries()->save($galleryEntry);
       return redirect('/')->with(['message' => 'Gallery entry successfully submitted']);
     }
 

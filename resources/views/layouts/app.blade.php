@@ -36,7 +36,9 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <li><a href="{{ route('gallery-entry.create') }}">Submit</a></li>
+                        @auth
+                          <li><a href="{{ route('gallery-entry.create') }}">Submit</a></li>
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->

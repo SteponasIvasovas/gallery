@@ -6,7 +6,7 @@
   margin-bottom: 0px;
 }
 
-/** Bootsnip image Upload **/
+/** Bootsnip image upload **/
 .btn-file {
     position: relative;
     overflow: hidden;
@@ -29,5 +29,28 @@
 
 #img-upload{
     width: 100%;
+}
+/***************************/
+/****Bootsnip gallery ******/
+body {
+    font-family: sans-serif;
+}
+#container {
+    background: #DDD;
+    max-width: 1400px;
+}
+.item {
+    width: 200px;
+    float: left;
+}
+.item img {
+    display: block;
+    width: 100%;
+}
+button {
+    font-size: 18px;
+}
+.container{
+    width:100%;
 }
 /***************************/

@@ -12,4 +12,8 @@ class GalleryEntry extends Model
       'image',
       'tags'
     ];
+
+    public function user() {
+      return $this->belongsTo(User::class);
+    }
 }
