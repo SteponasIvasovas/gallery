@@ -26,7 +26,7 @@ class CreateGalleryEntriesTable extends Migration
             $table->timestamps();
 
             //cascae istrina visus elementus susijusius su siuo raktu
-            $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
