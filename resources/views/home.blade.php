@@ -17,7 +17,7 @@
 					@foreach ($users as $user)
 						@if ($galleryEntry->user_id == $user->id)
 							<h3>
-								<a href="#">{{$user->username}}</a>
+								<a href="{{route('user.index', $user)}}">{{$user->username}}</a>
 							</h3>
 						@endif
 					@endforeach

@@ -16,6 +16,6 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+Route::get('/user/{user}', 'UserController@index')->name('user.index');
 Route::get('/', 'HomeController@index')->name('home');
 Route::resource('/gallery-entry', 'GalleryEntryController');

@@ -26,7 +26,9 @@ class CreateUsersTable extends Migration
             $table->string('gender')->nullable();
             $table->string('birthday')->nullable();
             $table->string('country')->nullable();
+            $table->string('banner')->nullable();
             $table->string('avatar')->nullable();
+            $table->string('tagline')->nullable();
             $table->string('about')->nullable();
 
             $table->rememberToken();
