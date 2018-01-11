@@ -19,8 +19,14 @@ class CreateGalleryEntriesTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('image');
+            $table->string('category')->default('Other');
             $table->text('tags')->nullable();
+            $table->integer('favorite_count')->default(0);
+            $table->integer('comment_count')->default(0);
             $table->timestamps();
+
+            //cascae istrina visus elementus susijusius su siuo raktu
+            $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

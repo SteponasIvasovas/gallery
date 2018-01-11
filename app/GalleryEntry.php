@@ -10,7 +10,8 @@ class GalleryEntry extends Model
       'title',
       'description',
       'image',
-      'tags'
+      'tags',
+      'category',
     ];
 
     public function user() {

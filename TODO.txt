@@ -1,0 +1,4 @@
+sutvarkyti duomenu bazes
+sutvarkyti seedus
+prideti favorit mygtuka homei (jei prisijunges)
+sutvarkyti teksta ant paveiksliuko

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\GalleryEntry;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-      $galleryEntries = GalleryEntry::paginate(20);
-      return view('home', compact('galleryEntries'));
+      $galleryEntries = GalleryEntry::all();
+      $users = User::all();
+      return view('home', compact('galleryEntries'), compact('users'));
     }
 }

@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use DateTime;
+use App\User;
 use App\GalleryEntry;
 use App\Http\Requests\StoreGalleryEntryRequest;
 use Illuminate\Http\Request;
@@ -22,7 +23,8 @@ class GalleryEntryController extends Controller
     public function index()
     {
         $galleryEntries = GalleryEntry::all();
-        return view('gallery-entry.index', compact('galleryEntries'));
+        $users = User::all();
+        return view('gallery-entry.index', compact('galleryEntries'), compact('users'));
     }
 
     /**
@@ -44,7 +46,7 @@ class GalleryEntryController extends Controller
     public function store(StoreGalleryEntryRequest $request)
     {
       $galleryEntry = new GalleryEntry();
-      
+
       $galleryEntry->title = $request->title;
       $galleryEntry->description = $request->description;
       $galleryEntry->tags = $request->tags;
