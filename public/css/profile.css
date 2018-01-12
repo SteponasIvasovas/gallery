@@ -1,33 +1,15 @@
 /* USER PROFILE PAGE */
- .card {
-    margin-top: 20px;
-    background-color: rgba(214, 224, 226, 0.2);
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
 .card.hovercard {
     margin-top: -22px;
     position: relative;
     padding-top: 0;
     overflow: hidden;
-    text-align: center;
-    background-color: #fff;
-    background-color: rgba(255, 255, 255, 1);
 }
 .card.hovercard .card-background {
-    height: 150px;
+    background-color: rgba(28, 66, 47, 0.6);
+    height: 85px;
 }
-.card-background img {
-    -webkit-filter: blur(25px);
-    -moz-filter: blur(25px);
-    -o-filter: blur(25px);
-    -ms-filter: blur(25px);
-    filter: blur(25px);
-    margin-left: -100px;
-    margin-top: -200px;
-    min-width: 130%;
-}
+
 .card.hovercard .useravatar {
     position: absolute;
     bottom: 5px;
@@ -58,14 +40,23 @@
   color: black;
 }
 
-.card.hovercard .bottom {
-    padding: 0 20px;
-    margin-bottom: 17px;
-}
-.btn-pref .btn {
-    -webkit-border-radius:0 !important;
-}
 .tab-content {
   margin-top: 20px;
   padding: 0 50px;
+}
+
+.my-btn-panel button {
+  background-color: rgba(28, 66, 47, 0.4);
+  /* color: white; */
+  color: rgba(255, 255, 255, 0.5);
+  border-radius: 0;
+  border: 0;
+  border: 1px solid rgba(28, 66, 47, 0.2);
+  font-weight: 600;
+}
+
+.my-btn-panel button:hover {
+  background-color: rgba(28, 66, 47, 0.5);
+  border: 1px solid rgba(28, 66, 47, 0.3);
+  color: white;
 }

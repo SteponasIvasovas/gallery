@@ -11,9 +11,11 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Quattrocento:400,700" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/styles.min.css') }}">
     <link href="{{ asset('css/profile.css') }}" rel="stylesheet">
+
 </head>
 <body>
     <div id="app">

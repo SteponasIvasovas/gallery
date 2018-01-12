@@ -3,10 +3,8 @@
   <div style="min-width: 600px;">
     <div class="card hovercard">
       <div class="card-background">
-        <img class="card-bkimg" alt="" src="http://lorempixel.com/100/100/people/9/">
-        <!-- http://lorempixel.com/850/280/people/9/ -->
       </div>
-      {{-- @if ($user->avatr != null) --}}
+      {{-- @if ($user->avatar != null) --}}
         <div class="useravatar">
           <!-- <img alt="no-avatar" src="{{$user->avatar}}"> -->
           <img alt="" src="http://lorempixel.com/100/100/people/9/">
@@ -17,7 +15,7 @@
         <span class="card-tagline">Tagline{{$user->tagline}}</span>
       </div>
     </div>
-    <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+    <div class="my-btn-panel btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
       <div class="btn-group" role="group">
         <button type="button" id="home" class="btn btn-default" href="#tab1" data-toggle="tab">
           <div>Home</div>
