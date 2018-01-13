@@ -21,16 +21,16 @@ class GalleryEntrySeeder extends Seeder
      */
     public function run()
     {
-      $width = 800;
-      $height = 600;
       $faker = $this->faker->create();
       $user_ids = $this->user->pluck('id');
-      foreach (range(1, 10) as $x) {
+      foreach (range(1, 40) as $x) {
+				$width = 50 * rand(1, 20);
+				$height = 50 * rand(1, 20);
         $this->galleryEntry->create([
         'user_id' => $user_ids->random(),
         'title' => $faker->word(),
         'description' => $faker->text(200),
-        'image' => $faker->imageUrl($width, $height, 'cats'),
+        'image' => $faker->imageUrl($width, $height),
         'tags' => $faker->words(rand(0, 5), true),
         'favorite_count' => 0,
         'comment_count' => 0,

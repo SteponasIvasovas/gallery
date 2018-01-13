@@ -7,12 +7,12 @@
       {{-- @if ($user->avatar != null) --}}
         <div class="useravatar">
           <!-- <img alt="no-avatar" src="{{$user->avatar}}"> -->
-          <img alt="" src="http://lorempixel.com/100/100/people/9/">
+          <img alt="" src="{{$user->avatar}}">
         </div>
       {{-- @endif --}}
       <div class="card-info text-left">
         <span class="card-title">{{$user->username}}</span>
-        <span class="card-tagline">Tagline{{$user->tagline}}</span>
+        <span class="card-tagline">{{$user->tagline}}</span>
       </div>
     </div>
     <div class="my-btn-panel btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
@@ -35,7 +35,7 @@
 
     <div class="tab-content">
       <div class="tab-pane fade in" id="tab1">
-        <p>{{$user->firstname}} {{$user->surname}}</p>
+        <p>{{$user->firstname}} {{$user->lastame}}</p>
         <p>{{$user->gender}}</p>
         <p>{{$user->birthday}}</p>
         <p>{{$user->about}}</p>

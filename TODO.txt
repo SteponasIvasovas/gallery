@@ -1,1 +1,3 @@
-userio bladeas
+user seed
+apribojimai user db laukeliu
+profile home tab atvaizdavimas

@@ -22,13 +22,14 @@ class CreateUsersTable extends Migration
             $table->boolean('admin')->default(0);
             //profilis
             $table->string('firstname')->nullable();
-            $table->string('surname')->nullable();
+            $table->string('lastname')->nullable();
             $table->string('gender')->nullable();
             $table->string('birthday')->nullable();
             $table->string('country')->nullable();
+            $table->string('city')->nullable();
             $table->string('avatar')->nullable();
             $table->string('tagline')->nullable();
-            $table->string('about')->nullable();
+            $table->text('about')->nullable();
 
             $table->rememberToken();
             $table->timestamps();

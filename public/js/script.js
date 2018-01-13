@@ -38,4 +38,85 @@ $(document).ready(function() {
     readURL(this);
 	});
 /***************************/
+	$(document).ready(function(){
+		let galleryEntries = $('.gallery-entry-img');
+		for (let i = 0; i < galleryEntries.length; i++) {
+			console.log(galleryEntries[i].height);
+		}
+	});
+	$(document).ready(function(){
+		// let galleryEntries = $('.gallery-entry-img');
+		$('.gallery-entry-img').each(function() {
+			$(this).on('load', function(){
+				// for (let i = 0; i < galleryEntries.length; i++) {
+				let css;
+				let ratio = $(this).width() / $(this).height();
+				console.log($(this).width(), $(this).height(), ratio);
+				if (ratio >= 1) {
+					let width = 300 * ratio;
+					width = Math.round(width);
+
+					if (width > 500) {
+						width = 500;
+					}
+
+					css = {"min-width": width.toString() + "px", "height":"300px"};
+					$(this).parent().css(css);
+					css = {"width" : "95%", "height" : "auto"};
+					$(this).css(css);
+				} else if (ratio < 1) {
+					let width = 300 * ratio;
+					width = Math.round(width);
+
+					if (width <= 180) {
+						width = 180;
+					}
+
+					css = {"min-width": width.toString() + "px", "height":"300px"};
+					$(this).parent().css(css);
+					css = {"width" : "auto", "height" : "95%"};
+					$(this).css(css);
+				}
+				// }
+			});
+
+		});
+	});
+
 });
+
+// function _loadimages(imgArr,callback) {
+//   //Keep track of the images that are loaded
+//   var imagesLoaded = 0;
+//   function _loadAllImages(callback){
+//    //Create an temp image and load the url
+//    var img = new Image();
+//    $(img).attr('src', imgArr[imagesLoaded]);
+//    if (img.complete || img.readyState === 4) {
+//     // image is cached
+//     imagesLoaded++;
+//     //Check if all images are loaded
+//     if(imagesLoaded == imgArr.length) {
+//      //If all images loaded do the callback
+//      callback();
+//     } else {
+//      //If not all images are loaded call own function again
+//      _loadAllImages(callback);
+//     }
+//    } else {
+//     $(img).load(function(){
+//      //Increment the images loaded variable
+//      imagesLoaded++;
+//      //Check if all images are loaded
+//      if(imagesLoaded == imgArr.length) {
+//       //If all images loaded do the callback
+//       callback();
+//      } else {
+//       //If not all images are loaded call own function again
+//       _loadAllImages(callback);
+//      }
+//     });
+//    }
+//   };
+//   _loadAllImages(callback);
+//  }

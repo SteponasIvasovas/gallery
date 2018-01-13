@@ -8,9 +8,10 @@ use App\User;
 use App\GalleryEntry;
 use App\Http\Requests\StoreGalleryEntryRequest;
 use Illuminate\Http\Request;
+use Intervention\Image\ImageManager;
+use Illuminate\Support\Facades\Storage;
 // use Illuminate\Support\Facades\DB;
 // use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\Storage;
 // use Intervention\Image\Facades\Image;
 
 class GalleryEntryController extends Controller
