@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div id="gallery-entry-create-container" >
   <form class="col-md-6" action="{{route('gallery-entry.store')}}" method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
     <h2>Submit new gallery entry</h2>
@@ -39,7 +39,7 @@
     <div class="form-group">
       <label for="img-tags">Tags</label>
       <div class="input-group col-md-12">
-        <input id="img-tags" type="text" placeholder="Image tags separated by spaces (max 5 tags)" class="form-control" name="tags" value="">
+        <input id="img-tags" type="text" placeholder="Image tags starting with # and separated by spaces (max 5 tags)" class="form-control" name="tags" value="">
       </div>
     </div>
     <div class="form-group">

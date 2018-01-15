@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-      $galleryEntries = GalleryEntry::all();
+      $galleryEntries = GalleryEntry::paginate(10);
       $users = User::all();
       return view('home', compact('galleryEntries'), compact('users'));
     }

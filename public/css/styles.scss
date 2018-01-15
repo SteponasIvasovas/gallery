@@ -1,174 +1,255 @@
 $bg-color : rgba(28, 66, 47, 0.1);
 $bg-color-btn: rgba(28, 66, 47, 0.1);
-$text-color : black;
-
-body {
-  background-color: $bg-color;
-  font-family: 'Quattrocento', serif !important;
+.nav-to-content-margin {
+  margin-top: 75px;
 }
-.main-nav {
-  background-color: rgba(28, 66, 47, 0.8);
-}
-
+/*********************************************/
+/*********************************************/
+/*********************************************/
+/** Style overwriting **/
 .navbar-default {
   border: 0;
 }
-
 .navbar-default .navbar-brand {
-  // color: black;
   color: rgba(255, 255, 255, 0.5);
   font-weight: 700;
 }
 .navbar-default .navbar-nav>li>a,
 .navbar-default .navbar-text {
-  // color: black;
   color: rgba(255, 255, 255, 0.5);
   font-weight: 700;
 }
-
 .navbar-default .navbar-brand:focus,
 .navbar-default .navbar-brand:hover {
-    color: white;
-    background-color: transparent;
+  color: white;
+  background-color: transparent;
 }
-
 .navbar-default .navbar-nav>li>a:focus,
 .navbar-default .navbar-nav>li>a:hover {
-    color: white;
-    background-color: transparent;
+  color: white;
+  background-color: transparent;
 }
-
+.navbar-right {
+    margin-right: 15px;
+}
+.navbar-brand {
+  padding: 0;
+  margin-left: 15px;
+}
+.navbar-nav>li>a {
+  padding-top: 26.5px;
+  padding-bottom: 26.5px;
+}
+/*********************************************/
+/*********************************************/
+/*********************************************/
+body {
+  font-family: 'Quattrocento', serif !important;
+  // background-image: linear-gradient(to bottom, #FFFFFF 0%, #c4c4c4 100%);
+}
+#main-nav {
+  position: fixed;
+  width: 100%;
+  background-color: rgba(39, 48, 47, 1);
+  height: 75px;
+}
+/*********************************************/
+/*********************************************/
+/*********************************************/
+/** gallery-entry/create.blade.php **/
 .my-error-message {
   margin-bottom: 0px;
 }
-
-/** Bootsnip image upload **/
 .btn-file {
-    position: relative;
-    overflow: hidden;
+  position: relative;
+  overflow: hidden;
 }
 .btn-file input[type=file] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 100%;
-    min-height: 100%;
-    font-size: 100px;
-    text-align: right;
-    filter: alpha(opacity = 0);
-    opacity: 0;
-    outline: none;
-    background: white;
-    cursor: inherit;
-    display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity = 0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
 }
-
 #img-upload{
-    width: 100%;
+  width: 100%;
 }
-/***************************/
-/****Bootsnip gallery ******/
-.my-container {
-  margin: 0 auto;
+#gallery-entry-create-container {
+  position: absolute;
+  height: 100%;
+  margin-top: 75px;
+  // background-image: linear-gradient(to bottom, #FFFFFF 0%, #c4c4c4 100%);
 }
-
-.home-gallery-entry-container {
-  display: inline-block;
-  position: relative;
-  min-width: 300px;
-  height: 300px;
-  overflow: hidden;
-  margin-bottom: 20px;
-
-  .gallery-entry-gradient {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+/*********************************************/
+/*********************************************/
+/*********************************************/
+/** home.blade.php **/
+#side-menu {
+  width: 200px;
+  height: 100%;
+  position: fixed;
+  background: white;
+  top: 75px;
+  background-color: rgba(47, 55, 54, 1);
+}
+#home-container {
+  position: absolute;
+  left: 200px;
+  margin-top: 75px;
+  background-image: linear-gradient(to bottom, #FFFFFF 0%, #c4c4c4 100%);
+  #home-banner-container {
     height: 300px;
-    padding: 0;
-    margin: 0;
-    z-index: 5;
-  }
-
-  &:hover {
-    // background-color: rgba(0, 0, 0, 0.5);
-    // background-image: linear-gradient(to bottom, #FFFFFF 0%, #000000 90%);
-    .gallery-entry-gradient {
-      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 10%,
-      rgba(200, 200, 200, 0.1) 50%,
-      rgba(0, 0, 0, 0.8) 90%);
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    #home-banner-image {
+      position: absolute;
+      min-width: 500px;
+      width: 100%;
+      min-height: 300px;
+      top: 50%;
+      transform: translateY(-50%);
+      filter: brightness(80%);
     }
-    .gallery-entry-img {
-      // filter: brightness(25%);
-    }
-    .gallery-entry-fav, h2, h3, p {
-      opacity: 1;
-    }
-  }
-  .gallery-entry-img {
-    z-index: 1;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 95%;
-    height: auto;
-    box-shadow: 0px 0px 6px 2px rgba(0,0,0,0.75);
-  }
-
-  .gallery-entry-fav {
-    position: absolute;
-    top: 0px;
-    right: 20px;
-    padding: 0 15px;
-    font-size: 30px;
-    color: green;
-    background-color: rgba(100, 100, 100, 0.5);
-    opacity: 0;
-  }
-
-  h2 {
-    z-index: 10;
-    position: absolute;
-    font-size: 20px;
-    font-weight: 800;
-    bottom: 42px;
-    left: 10px;
-    color: white;
-    opacity: 0;
-  }
-
-  h3 {
-    z-index: 10;
-    position: absolute;
-    font-size: 15px;
-    bottom: 16px;
-    left: 10px;
-    opacity: 0;
-    img {
-      width: 15px;
-      height: 15px;
-      margin-bottom: 3px;
-    }
-
-    a {
-      text-decoration: none;
-      color: white;
-
-      &:hover {
-        text-decoration: underline;
+    #home-banner-info {
+      position: absolute;
+      overflow: hidden;
+      min-width: 100%;
+      left: 50%;
+      top: 40%;
+      transform: translate(-50%, -50%);
+      img {
+        width: 200px;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        display: block;
+        height: auto;
+      }
+      p {
+        color: white;
+        font-size: 20px;
+        margin-bottom: 30px;
+      }
+      @media screen and (max-width: 650px) {
+        p {
+          display: none;
+        }
+      }
+      a {
+        background-color: rgba(47, 55, 54, 1);
+        color: white;
+        width: 200px;
+        font-size: 20px;
+        border-radius: 20px;
       }
     }
   }
-
-  p {
-    z-index: 10;
-    position: absolute;
-    bottom: -6px;
-    left: 10px;
-    color: white;
-    opacity: 0;
+  #home-gallery-container {
+    margin-top: 20px;
+    margin-left: 20px;
+    .home-gallery-entry-container {
+      display: inline-block;
+      position: relative;
+      min-width: 200px;
+      height: 200px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      .gallery-entry-gradient {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 200px;
+        padding: 0;
+        margin: 0;
+        z-index: 5;
+      }
+      &:hover {
+        .gallery-entry-gradient {
+          background-image: linear-gradient(to bottom,
+          rgba(255, 255, 255, 0) 10%,
+          rgba(200, 200, 200, 0.1) 50%,
+          rgba(0, 0, 0, 0.8) 90%);
+        }
+        .gallery-entry-fav, h2, h3, p {
+          opacity: 1;
+        }
+      }
+      .gallery-entry-image {
+        z-index: 1;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 95%;
+        box-shadow: 0px 0px 6px 2px rgba(0,0,0,0.75);
+      }
+      .gallery-entry-fav {
+        position: absolute;
+        top: 0px;
+        right: 20px;
+        padding: 0 15px;
+        font-size: 30px;
+        color: green;
+        background-color: rgba(100, 100, 100, 0.5);
+        opacity: 0;
+      }
+      h2 {
+        z-index: 10;
+        position: absolute;
+        font-size: 20px;
+        font-weight: 800;
+        bottom: 42px;
+        left: 10px;
+        color: white;
+        opacity: 0;
+      }
+      h3 {
+        z-index: 10;
+        position: absolute;
+        font-size: 15px;
+        bottom: 16px;
+        left: 10px;
+        opacity: 0;
+        img {
+          width: 15px;
+          height: 15px;
+          margin-bottom: 3px;
+        }
+        a {
+          text-decoration: none;
+          color: white;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+      p {
+        z-index: 10;
+        position: absolute;
+        bottom: -6px;
+        left: 10px;
+        color: white;
+        opacity: 0;
+      }
+    }
   }
 }
-/***************************/
+/*********************************************/
+/*********************************************/
+/*********************************************/
+/** auth/login.blade.php **/
+.auth-container {
+  position: fixed;
+  width: 100%;
+  margin-top: 150px;
+  // background-image: linear-gradient(to bottom, #FFFFFF 0%, #c4c4c4 100%);
+}

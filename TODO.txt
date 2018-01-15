@@ -1,3 +1,5 @@
 user seed
-apribojimai user db laukeliu
+apribojimai user db laukeliu +
 profile home tab atvaizdavimas
+home side baras
+profile gallery atvaizdavimas

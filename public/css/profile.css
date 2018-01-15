@@ -1,6 +1,10 @@
 /* USER PROFILE PAGE */
+#user-profile {
+  position: absolute;
+  top: 75px;
+}
+
 .card.hovercard {
-    margin-top: -22px;
     position: relative;
     padding-top: 0;
     overflow: hidden;

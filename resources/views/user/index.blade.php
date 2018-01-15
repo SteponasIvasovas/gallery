@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-  <div style="min-width: 600px;">
+  <div id="user-profile" style="min-width: 600px;">
     <div class="card hovercard">
       <div class="card-background">
       </div>

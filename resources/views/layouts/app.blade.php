@@ -19,8 +19,8 @@
 </head>
 <body>
     <div id="app">
-        <nav class="main-nav navbar navbar-default navbar-static-top">
-            <div class="container">
+        <nav id="main-nav" class="navbar navbar-default navbar-static-top">
+            <div class="">
                 <div class="navbar-header">
                     <!-- Collapsed Hamburger -->
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse" aria-expanded="false">
@@ -32,7 +32,8 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{-- config('app.name', 'Laravel') --}}
+                        <img src="{{ asset('images/logo.png')}}" alt="" height="75px" width="auto">
                     </a>
                 </div>
 
