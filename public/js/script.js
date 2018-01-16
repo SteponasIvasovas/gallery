@@ -37,12 +37,13 @@ $(document).ready(function() {
 	$("#imgInp").change(function(){
     readURL(this);
 	});
-/****************************/
-/****************************/
-/****************************/
-// $('textarea').autoResize();
-	let textHeight = $("#user-about").get(0).scrollHeight;
-	$("#user-about").height(textHeight);
+	/****************************/
+	/****************************/
+	/****************************/
+	if ($("#user-about").length > 0) {
+		let textHeight = $("#user-about").get(0).scrollHeight;
+		$("#user-about").height(textHeight);
+	}
 });
 
 $(window).on('load', function () {

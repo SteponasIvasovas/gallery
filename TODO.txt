@@ -1,5 +1,20 @@
-user seed
-apribojimai user db laukeliu +
-profile home tab atvaizdavimas
-home side baras
-profile gallery atvaizdavimas
+home.blade.php
+---------------------------------------------------------------
+searchas virsuj +
+searchas sone
+searchas pagal tagus
+searchas pagal title
+searchas pagal useri
+kategorijos sone
+paspaudus ant paveiksliuko nukreipimas i isdidinta paveiksliuka
+bannerio mygtukas tik prisiloginus
+
+prisiloginus :
+pafovoritint su ajaxu
+negali favoritint savo
+desiniame sone navbare dropdown su nuorodimis i profili, i galerija, i favoritus, i logout
+kairiam sone navbare submitas imageo
+
+bonus:
+perziuros metodas - slideris
+---------------------------------------------------------------
