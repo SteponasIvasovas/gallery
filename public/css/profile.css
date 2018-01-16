@@ -3,23 +3,22 @@
   position: absolute;
   top: 75px;
 }
-
 .card.hovercard {
     position: relative;
     padding-top: 0;
     overflow: hidden;
 }
 .card.hovercard .card-background {
-    background-color: rgba(28, 66, 47, 0.6);
+    /* background-color: rgba(28, 66, 47, 0.6); */
+    background-color: rgba(39, 48, 47, 0.75);
     height: 85px;
 }
-
-.card.hovercard .useravatar {
+.card.hovercard .user-avatar {
     position: absolute;
     bottom: 5px;
     left: 5px;
 }
-.card.hovercard .useravatar img {
+.card.hovercard .user-avatar img {
     width: 75px;
     height: 75px;
     border: 5px solid rgba(255, 255, 255, 0.5);
@@ -29,38 +28,29 @@
     bottom: 15px;
     left: 90px;
 }
-
 .card.hovercard .card-info .card-title {
   display: block;
   font-size: 20px;
   font-weight: 800;
   color: black;
 }
-
 .card.hovercard .card-info .card-tagline {
   display: block;
   font-size: 15px;
   font-weight: 400;
   color: black;
 }
-
-.tab-content {
-  margin-top: 20px;
-  padding: 0 50px;
-}
-
-.my-btn-panel button {
-  background-color: rgba(28, 66, 47, 0.4);
+.my-btn-panel a {
+  background-color: rgba(39, 48, 47, 0.5);
   /* color: white; */
   color: rgba(255, 255, 255, 0.5);
   border-radius: 0;
   border: 0;
-  border: 1px solid rgba(28, 66, 47, 0.2);
+  border: 1px solid rgba(39, 48, 47, 0.25);
   font-weight: 600;
 }
-
-.my-btn-panel button:hover {
-  background-color: rgba(28, 66, 47, 0.5);
-  border: 1px solid rgba(28, 66, 47, 0.3);
+.my-btn-panel a:hover {
+  background-color: rgba(47, 55, 54, 1);
+  border: 1px solid rgba(47, 55, 54, 0.5);
   color: white;
 }

@@ -37,42 +37,47 @@ $(document).ready(function() {
 	$("#imgInp").change(function(){
     readURL(this);
 	});
-/***************************/
+/****************************/
+/****************************/
+/****************************/
+// $('textarea').autoResize();
+	let textHeight = $("#user-about").get(0).scrollHeight;
+	$("#user-about").height(textHeight);
 });
 
 $(window).on('load', function () {
-		$(".gallery-entry-image").each(function (index) {
-			var width = $(this).width();
-			var height = $(this).height();
-			let ratio = width / height;
+	$(".gallery-entry-image").each(function (index) {
+		var width = $(this).width();
+		var height = $(this).height();
+		let ratio = width / height;
 
-			if (ratio >= 1) {
-				let width = 200 * ratio;
-				width = Math.round(width);
+		if (ratio >= 1) {
+			let width = 200 * ratio;
+			width = Math.round(width);
 
-				if (width > 400) {
-					width = 400;
-				}
-
-				css = {"min-width": width.toString() + "px", "height":"200px"};
-				$(this).parent().css(css);
-				css = {"width" : "95%", "height" : "auto"};
-				$(this).css(css);
-			} else if (ratio < 1) {
-				let width = 200 * ratio;
-				width = Math.round(width);
-
-				if (width <= 100) {
-					width = 100;
-				}
-				if (width > 400) {
-					width = 400;
-				}
-
-				css = {"min-width": width.toString() + "px", "height":"200px"};
-				$(this).parent().css(css);
-				css = {"width" : "auto", "height" : "95%"};
-				$(this).css(css);
+			if (width > 400) {
+				width = 400;
 			}
-		});
+
+			css = {"min-width": width.toString() + "px", "height":"200px"};
+			$(this).parent().css(css);
+			css = {"width" : "95%", "height" : "auto"};
+			$(this).css(css);
+		} else if (ratio < 1) {
+			let width = 200 * ratio;
+			width = Math.round(width);
+
+			if (width <= 100) {
+				width = 100;
+			}
+			if (width > 400) {
+				width = 400;
+			}
+
+			css = {"min-width": width.toString() + "px", "height":"200px"};
+			$(this).parent().css(css);
+			css = {"width" : "auto", "height" : "95%"};
+			$(this).css(css);
+		}
+	});
 });
