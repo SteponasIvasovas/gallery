@@ -48,11 +48,12 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
-                        <form class="navbar-form navbar-left" role="search" action="" method="post">
+                        <form class="navbar-form navbar-left" role="search" action="{{route('search')}}" method="get">
+                          {{ csrf_field() }}
                           <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for...">
+                            <input type="text" class="form-control" name="title" placeholder="Search for...">
                             <span class="input-group-btn">
-                              <button class="btn btn-secondary" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                              <button class="btn btn-secondary" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                             </span>
                           </div>
                         </form>

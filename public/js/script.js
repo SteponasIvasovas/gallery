@@ -44,6 +44,21 @@ $(document).ready(function() {
 		let textHeight = $("#user-about").get(0).scrollHeight;
 		$("#user-about").height(textHeight);
 	}
+
+	$("#as input[type='checkbox']").change(function() {
+		// console.log($(this));
+		let searchBox = $(this).parent().next().children();
+		// console.log($(searchBox));
+		let display = $(searchBox).css('display');
+
+		if (display == "none") {
+			$(searchBox).css({"display" : "block"});
+		} else {
+			$(searchBox).css({"display" : "none"});
+		}
+
+	});
+
 });
 
 $(window).on('load', function () {
@@ -82,3 +97,7 @@ $(window).on('load', function () {
 		}
 	});
 });
+
+function revealSearch() {
+
+}
