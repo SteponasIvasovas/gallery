@@ -6,7 +6,8 @@ searchas pagal tagus
 searchas pagal title
 searchas pagal useri
 searchas pagal kategorija - (sukurti kategoriju lentele)
-iskleidziamas advanced searchas ?
+iskleidziamas advanced searchas +
+gradiento scriptas
 kategorijos sone
 paspaudus ant paveiksliuko nukreipimas i isdidinta paveiksliuka
 bannerio mygtukas tik prisiloginus
@@ -19,4 +20,7 @@ kairiam sone navbare submitas imageo
 
 bonus:
 perziuros metodas - slideris
+collapse iconai
+favorit animacija
+
 ---------------------------------------------------------------

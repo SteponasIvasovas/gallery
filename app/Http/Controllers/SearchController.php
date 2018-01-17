@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\GalleryEntry;
+use App\Category;
 use App\User;
 use Illuminate\Http\Request;
-use App\GalleryEntry;
 
 class SearchController extends Controller
 {
@@ -12,6 +13,8 @@ class SearchController extends Controller
     $galleryEntries = GalleryEntry::where('title', 'like', '%'.$request->title.'%')
                                     ->paginate(10);
     $users = User::all();
-    return view('home', compact('galleryEntries'), compact('users'));
+    $categories = Category::all();
+
+    return view('home', compact('galleryEntries', 'users', 'categories'));
   }
 }

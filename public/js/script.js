@@ -40,15 +40,16 @@ $(document).ready(function() {
 	/****************************/
 	/****************************/
 	/****************************/
+
+	//textarea height user profile
 	if ($("#user-about").length > 0) {
 		let textHeight = $("#user-about").get(0).scrollHeight;
 		$("#user-about").height(textHeight);
 	}
 
-	$("#as input[type='checkbox']").change(function() {
-		// console.log($(this));
-		let searchBox = $(this).parent().next().children();
-		// console.log($(searchBox));
+
+	$(".search-checks input[type='checkbox']").change(function() {
+		let searchBox = $(this).parent().next();
 		let display = $(searchBox).css('display');
 
 		if (display == "none") {
@@ -58,6 +59,7 @@ $(document).ready(function() {
 		}
 
 	});
+
 
 });
 
@@ -97,7 +99,3 @@ $(window).on('load', function () {
 		}
 	});
 });
-
-function revealSearch() {
-
-}

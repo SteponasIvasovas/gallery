@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\GalleryEntry;
+use App\Category;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -28,6 +29,7 @@ class HomeController extends Controller
     {
       $galleryEntries = GalleryEntry::paginate(10);
       $users = User::all();
-      return view('home', compact('galleryEntries'), compact('users'));
+      $categories = Category::all();
+      return view('home', compact('galleryEntries', 'users', 'categories'));
     }
 }

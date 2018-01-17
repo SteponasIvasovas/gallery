@@ -21,8 +21,6 @@ class CreateGalleryEntriesTable extends Migration
             $table->string('image');
             $table->integer('category_id')->unsigned()->nullable();
             $table->text('tags')->nullable();
-            $table->integer('favorite_count')->default(0);
-            $table->integer('comment_count')->default(0);
             $table->timestamps();
 
             //cascae istrina visus elementus susijusius su siuo raktu

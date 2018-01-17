@@ -3,41 +3,42 @@
 <div id="side-menu">
 	<form id="as" class="navbar-form navbar-left" role="search" action="{{route('search')}}" method="get">
 		{{ csrf_field() }}
-		<h3>Advanced search</h3>
-		<div class="search-checks form-check">
-			<input class="form-check-input" type="checkbox" value="" id="as-title-check" name="as-title-check" checked>
-			<label class="form-check-label" for="as-title-check">by title</label>
+		<h3><a href="#as-panel" data-toggle="collapse">Advanced search</a></h3>
+		<hr>
+		<div id="as-panel" class="collapse">
+			<div class="search-checks form-check">
+				<input class="form-check-input" type="checkbox" value="" id="as-title-check" name="as-title-check">
+				<label class="form-check-label" for="as-title-check">by title</label>
+			</div>
+			<div class="search-box form-group toggleable">
+				<input type="text" class="form-control" name="title" placeholder="Search for..." id="as-title">
+			</div>
+			<div class="search-checks form-check">
+				<input class="form-check-input" type="checkbox" value="" id="as-tags-check" name="as-tags-check">
+				<label class="form-check-label" for="as-tags-check">by tags</label>
+			</div>
+			<div class="search-box form-group toggleable">
+				<input type="text" class="form-control" name="tags" placeholder="Search for..." id="as-tags">
+			</div>
+			<div class="search-checks form-check">
+				<input class="form-check-input" type="checkbox" value="" id="as-user-check" name="as-user-check">
+				<label class="form-check-label" for="as-user-check">by user</label>
+			</div>
+			<div class="search-box form-group toggleable">
+				<input type="text" class="form-control" name="user" placeholder="Search for..." id="as-user">
+			</div>
+			<div class="search-checks form-check">
+				<input class="form-check-input" type="checkbox" value="" id="as-category-check" name="as-category-check">
+				<label class="form-check-label" for="as-category-check">by category</label>
+			</div>
+			<div class="toggleable as-categories">
+			@foreach ($categories as $category)
+			<div class="form-check">
+				<input class="form-check-input" type="checkbox" value="">
+				<label class="form-check-label">{{$category->name}}</label>
+			</div>
+			@endforeach
 		</div>
-		<div class="search-box form-group">
-			<input type="text" class="form-control" name="title" placeholder="Search for..." id="as-title">
-		</div>
-		<div class="search-checks form-check">
-			<input class="form-check-input" type="checkbox" value="" id="as-tags-check" name="as-tags-check">
-			<label class="form-check-label" for="as-tags-check">by tags</label>
-		</div>
-		<div class="search-box form-group">
-			<input type="text" class="form-control" name="tags" placeholder="Search for..." id="as-tags">
-		</div>
-		<div class="search-checks form-check">
-			<input class="form-check-input" type="checkbox" value="" id="as-user-check" name="as-user-check">
-			<label class="form-check-label" for="as-user-check">by user</label>
-		</div>
-		<div class="search-box form-group">
-			<input type="text" class="form-control" name="user" placeholder="Search for..." id="as-user">
-		</div>
-		<div class="search-checks form-check">
-			<input class="form-check-input" type="checkbox" value="" id="as-category-check" name="as-category-check">
-			<label class="form-check-label" for="as-category-check">by category</label>
-		</div>
-		<div class="search-box form-group">
-				<select class="form-control" name="menu_id">
-					{{--
-					@foreach($menus as $menu)
-						<option value="{{$menu->id}}">{{$menu->title}}</option>
-					@endforeach
-					--}}
-				</select>
-			<input type="text" class="form-control" name="category" placeholder="Search for..." id="as-category">
 		</div>
 	</form>
 </div>

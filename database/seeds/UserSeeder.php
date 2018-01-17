@@ -23,8 +23,8 @@ class UserSeeder extends Seeder
 				$width = 50 * rand(1, 20);
 				$height = 50 * rand(1, 20);
         $this->user->create([
-        'username' => $faker->userName(),
-        'email' => $faker->email(),
+        'username' => $faker->unique()->userName(),
+        'email' => $faker->unique()->email(),
         'password' => \Hash::make('testas'),
 				'admin' => 0,
 
