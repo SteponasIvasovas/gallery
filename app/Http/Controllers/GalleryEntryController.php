@@ -25,7 +25,7 @@ class GalleryEntryController extends Controller
     {
         $galleryEntries = GalleryEntry::all();
         $users = User::all();
-        return view('gallery-entry.index', compact('galleryEntries'), compact('users'));
+        return view('gallery-entry.index', compact('galleryEntries', 'users'));
     }
 
     /**

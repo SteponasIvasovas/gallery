@@ -36,7 +36,7 @@ class GalleryEntrySeeder extends Seeder
         'title' => $faker->word(),
         'description' => $faker->text(200),
         'image' => $faker->imageUrl($width, $height),
-        'tags' => $faker->words(rand(0, 5), true),
+        'tags' => ' '.$faker->words(rand(0, 5), true).' ',
 
         'created_at' => new \DateTime(),
         'updated_at' => new \DateTime(),

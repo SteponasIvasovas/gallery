@@ -20,4 +20,5 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/user/{user}/gallery', 'UserController@gallery')->name('user.gallery');
 Route::get('/user/{user}', 'UserController@profile')->name('user.profile');
 Route::get('/search', 'SearchController@search')->name('search');
+Route::get('/searchAdvanced', 'SearchController@searchAdvanced')->name('searchAdvanced');
 Route::resource('/gallery-entry', 'GalleryEntryController');
