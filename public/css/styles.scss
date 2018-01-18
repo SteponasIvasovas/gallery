@@ -199,6 +199,15 @@ body {
       margin-top: 10px;
     }
   }
+  #list-categories {
+    margin-top: 10px;
+    margin-left: 15px;
+    padding-left: 0;
+    a {
+      font-size: 20px;
+      color: $text-white075;
+    }
+  }
 }
 #home-container {
   z-index: 0;

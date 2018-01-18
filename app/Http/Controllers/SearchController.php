@@ -64,6 +64,14 @@ class SearchController extends Controller
     return view('home', compact('galleryEntries', 'users', 'categories'));
   }
 
+  public function filterCategory(Category $category) {
+    $galleryEntries = GalleryEntry::where('category_id', '=', $category->id)->paginate(10);
+    $users = User::all();
+    $categories = Category::all();
+
+    return view('home', compact('galleryEntries', 'users', 'categories'));
+  }
+
   public function paginate($items, $perPage = 15, $page = null, $options = [], $path = "")
   {
   	$page = $page ?: (Paginator::resolveCurrentPage() ?: 1);

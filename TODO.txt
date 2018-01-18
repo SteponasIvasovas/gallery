@@ -10,12 +10,12 @@ iskleidziamas advanced searchas +
 paginationo stilius +
 
 gradiento scriptas +
-kategorijos sone
+kategorijos sone +
 paspaudus ant paveiksliuko nukreipimas i isdidinta paveiksliuka
 bannerio mygtukas tik prisiloginus
 
 prisiloginus :
-pafovoritint su ajaxu
+pafovoritint su scriptu
 negali favoritint savo
 desiniame sone navbare dropdown su nuorodimis i profili, i galerija, i favoritus, i logout
 kairiam sone navbare submitas imageo
@@ -24,5 +24,4 @@ bonus:
 perziuros metodas - slideris
 collapse iconai
 favorit animacija
-
 ---------------------------------------------------------------

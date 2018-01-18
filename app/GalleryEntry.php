@@ -20,4 +20,10 @@ class GalleryEntry extends Model
     public function categories() {
       return $this->hasMany(Category::class);
     }
+    public function comments() {
+      return $this->hasMany(Comment::class);
+    }
+    public function favorites() {
+      return $this->hasMany(Favorite::class);
+    }
 }

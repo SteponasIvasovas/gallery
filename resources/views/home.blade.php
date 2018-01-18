@@ -41,7 +41,15 @@
 			</div>
 			<button class="btn btn-secondary" type="submit">Search</button>
 		</div>
+		<h3>Categories</h3>
+		<hr>
+		<ol id="list-categories">
+			@foreach ($categories as $category)
+				<li><a href="{{ route('filterCategory', $category)}}">{{$category->name}}</a></li>
+			@endforeach
+		</ol>
 	</form>
+
 </div>
 <div id="home-container">
 	<div id="home-banner-container">
@@ -55,7 +63,7 @@
 	<div id="home-gallery-container" class="text-left">
 			@foreach ($galleryEntries as $galleryEntry)
 				<div class="home-gallery-entry-container text-left">
-					<a href="#">
+					<a href="{{ route('gallery-entry.show', $galleryEntry) }}">
 						<div class="gallery-entry-gradient">
 						</div>
 					</a>
@@ -81,7 +89,6 @@
 			@endforeach
 			<div class="page-links text-center">
 				{{$galleryEntries->appends(Request::except('page'))->render()}}
-				{{--$galleryEntries->appends(Request::except('page'))->links()--}}
 			</div>
 	</div>
 </div>

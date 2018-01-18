@@ -6,10 +6,12 @@ namespace App\Http\Controllers;
 use DateTime;
 use App\User;
 use App\GalleryEntry;
+use App\Comment;
 use App\Http\Requests\StoreGalleryEntryRequest;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 // use Illuminate\Support\Facades\DB;
 // use Illuminate\Support\Facades\Input;
 // use Intervention\Image\Facades\Image;
@@ -69,7 +71,17 @@ class GalleryEntryController extends Controller
      */
     public function show(GalleryEntry $galleryEntry)
     {
-        //
+      // $users = User::distinct()->join('comments', 'users.id', '=', 'comments.user_id')->get();
+      $users = DB::table('users')
+      ->join('comments', 'users.id', '=', 'comments.user_id')
+      ->groupBy('id')
+      ->get();
+                     // join('gallery_entries', 'gallery_entries.id', '=', 'comments.gallery_entry_id' )->get();
+
+      dd($users);
+      $comments = Comment::join('gallery_entries', 'gallery_entry_id', '=', 'gallery_entries.id')->get();
+
+      return view('gallery-entry.show', compact('galleryEntry', 'users', 'comments'));
     }
 
     /**
