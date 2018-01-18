@@ -47,7 +47,7 @@ $(document).ready(function() {
 		$("#user-about").height(textHeight);
 	}
 
-
+	//side menu advanced search
 	$(".search-checks input[type='checkbox']").change(function() {
 		let searchBox = $(this).parent().next();
 		let display = $(searchBox).css('display');
@@ -57,10 +57,19 @@ $(document).ready(function() {
 		} else {
 			$(searchBox).css({"display" : "none"});
 		}
-
 	});
 
+});
 
+
+$
+
+$(window).on('resize', function() {
+	resizeGalleryContainer();
+});
+
+$("#side-menu").on('load', function() {
+	resizeGalleryContainer();
 });
 
 $(window).on('load', function () {
@@ -99,3 +108,22 @@ $(window).on('load', function () {
 		}
 	});
 });
+
+function resizeGalleryContainer() {
+	if ($("#side-menu").length == 0) {
+		console.log('hello');
+		return;
+	}
+	//gradient apply by height
+	let sideMenuHeight = $("#side-menu").height();
+	sideMenuHeight -= 75;
+	let heightHGC = $("#home-gallery-container").outerHeight();
+	heightHGC += (300);
+	console.log(sideMenuHeight, heightHGC);
+
+	if (sideMenuHeight > heightHGC) {
+		$("#home-container").height(sideMenuHeight);
+	} else {
+		$("#home-container").height(heightHGC);
+	}
+}

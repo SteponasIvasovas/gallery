@@ -48,7 +48,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
-                        <form class="navbar-form navbar-left" role="search" action="{{route('search')}}" method="get">
+                        <form class="navbar-form navbar-left" role="search" action="{{route('search', 'basic')}}" method="get">
                           {{ csrf_field() }}
                           <div class="input-group">
                             <input type="text" class="form-control" name="title" placeholder="Search for...">

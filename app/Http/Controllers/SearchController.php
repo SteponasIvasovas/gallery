@@ -6,6 +6,9 @@ use App\GalleryEntry;
 use App\Category;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class SearchController extends Controller
 {
@@ -21,7 +24,6 @@ class SearchController extends Controller
     $users = User::all();
     $categories = Category::all();
     $galleryEntries = GalleryEntry::all();
-    // dd($galleryEntries);
 
     if (isset($request->as_title_check)) {
       $galleryEntries = $galleryEntries->intersect(GalleryEntry::where('title', 'like', '%'.$request->as_title.'%')->get());
@@ -30,8 +32,14 @@ class SearchController extends Controller
     if (isset($request->as_tags_check)) {
       $tags = explode(" ", $request->as_tags);
 
+      $first = true;
       foreach($tags as $tag) {
-        $galleryEntries = $galleryEntries->intersect(GalleryEntry::where('tags', 'like', '% '.$tag.' %')->get());
+        if ($first) {
+          $first = false;
+          $galleryEntries = $galleryEntries->intersect(GalleryEntry::where('tags', 'like', '% '.$tag.' %')->get());
+        } else {
+          $galleryEntries = $galleryEntries->merge(GalleryEntry::where('tags', 'like', '% '.$tag.' %')->get());
+        }
       }
     }
 
@@ -41,13 +49,27 @@ class SearchController extends Controller
     }
 
     if (isset($request->as_category_check)) {
+      $first = true;
       foreach($request->as_category as $category) {
-        $galleryEntries = $galleryEntries->intersect(GalleryEntry::where('category_id', '=', $category)->get());
+        if ($first) {
+          $first = false;
+          $galleryEntries = $galleryEntries->intersect(GalleryEntry::where('category_id', '=', $category)->get());
+        } else {
+          $galleryEntries = $galleryEntries->merge(GalleryEntry::where('category_id', '=', $category)->get());
+        }
       }
     }
 
-    // $galleryEntries = $galleryEntries->paginate(10);
-
+    $galleryEntries = $this->paginate($galleryEntries, $perPage = 10, $page = null, $options = [], $path = 'searchAdvanced');
     return view('home', compact('galleryEntries', 'users', 'categories'));
+  }
+
+  public function paginate($items, $perPage = 15, $page = null, $options = [], $path = "")
+  {
+  	$page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+  	$items = $items instanceof Collection ? $items : Collection::make($items);
+  	$paginator =  new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+    $paginator->setPath($path);
+    return $paginator;
   }
 }

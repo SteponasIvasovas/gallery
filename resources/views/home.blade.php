@@ -28,7 +28,7 @@
 				<input type="text" class="form-control" name="as_user" placeholder="Search for user..." id="as-user">
 			</div>
 			<div class="search-checks form-check">
-				<input class="form-check-input" type="checkbox" value="" id="as-category-check" name="as_category_check">
+				<input class="form-check-input" type="checkbox" value="checked" id="as-category-check" name="as_category_check">
 				<label class="form-check-label" for="as-category-check">by category</label>
 			</div>
 			<div class="toggleable as-categories">
@@ -79,6 +79,10 @@
 					</p>
 				</div>
 			@endforeach
+			<div class="page-links text-center">
+				{{$galleryEntries->appends(Request::except('page'))->render()}}
+				{{--$galleryEntries->appends(Request::except('page'))->links()--}}
+			</div>
 	</div>
 </div>
 @endsection
