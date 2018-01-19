@@ -21,5 +21,6 @@ Route::get('/user/{user}/gallery', 'UserController@gallery')->name('user.gallery
 Route::get('/user/{user}', 'UserController@profile')->name('user.profile');
 Route::get('/search', 'SearchController@search')->name('search');
 Route::get('/searchAdvanced', 'SearchController@searchAdvanced')->name('searchAdvanced');
+Route::get('/searchTag/{tag}', 'SearchController@searchTag')->name('searchTag');
 Route::get('/category/{category}', 'SearchController@filterCategory')->name('filterCategory');
 Route::resource('/gallery-entry', 'GalleryEntryController');

@@ -11,7 +11,7 @@ paginationo stilius +
 
 gradiento scriptas +
 kategorijos sone +
-paspaudus ant paveiksliuko nukreipimas i isdidinta paveiksliuka
+paspaudus ant paveiksliuko nukreipimas i isdidinta paveiksliuka +
 bannerio mygtukas tik prisiloginus
 
 prisiloginus :

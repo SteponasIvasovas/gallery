@@ -61,69 +61,72 @@ $(document).ready(function() {
 
 });
 
-
-$
-
 $(window).on('resize', function() {
-	resizeGalleryContainer();
+	let regex = /^\/gallery-entry\/\d+$/;
+	if (regex.test(window.location.pathname)) {
+		resizeGalleryEntryTextarea();
+	}
+	// resizeGalleryContainer();
 });
 
-$("#side-menu").on('load', function() {
-	resizeGalleryContainer();
+$(window).on('load', function() {
+	let regex = /^\/gallery-entry\/\d+$/;
+	if (regex.test(window.location.pathname)) {
+		resizeGalleryEntryTextarea();
+	}
+	// resizeGalleryContainer();
 });
 
-$(window).on('load', function () {
-	$(".gallery-entry-image").each(function (index) {
-		var width = $(this).width();
-		var height = $(this).height();
-		let ratio = width / height;
+// $(window).on('load', function () {
+// 	$(".gallery-entry-image").each(function (index) {
+// 		var width = $(this).width();
+// 		var height = $(this).height();
+// 		let ratio = width / height;
+//
+// 		if (ratio >= 1) {
+// 			let width = 200 * ratio;
+// 			width = Math.round(width);
+//
+// 			if (width > 400) {
+// 				width = 400;
+// 			}
+//
+// 			css = {"min-width": width.toString() + "px", "height":"200px"};
+// 			$(this).parent().css(css);
+// 			css = {"width" : "95%", "height" : "auto"};
+// 			$(this).css(css);
+// 		} else if (ratio < 1) {
+// 			let width = 200 * ratio;
+// 			width = Math.round(width);
+//
+// 			if (width <= 100) {
+// 				width = 100;
+// 			}
+// 			if (width > 400) {
+// 				width = 400;
+// 			}
+//
+// 			css = {"min-width": width.toString() + "px", "height":"200px"};
+// 			$(this).parent().css(css);
+// 			css = {"width" : "auto", "height" : "95%"};
+// 			$(this).css(css);
+// 		}
+// 	});
+// });
 
-		if (ratio >= 1) {
-			let width = 200 * ratio;
-			width = Math.round(width);
-
-			if (width > 400) {
-				width = 400;
-			}
-
-			css = {"min-width": width.toString() + "px", "height":"200px"};
-			$(this).parent().css(css);
-			css = {"width" : "95%", "height" : "auto"};
-			$(this).css(css);
-		} else if (ratio < 1) {
-			let width = 200 * ratio;
-			width = Math.round(width);
-
-			if (width <= 100) {
-				width = 100;
-			}
-			if (width > 400) {
-				width = 400;
-			}
-
-			css = {"min-width": width.toString() + "px", "height":"200px"};
-			$(this).parent().css(css);
-			css = {"width" : "auto", "height" : "95%"};
-			$(this).css(css);
-		}
+function resizeGalleryEntryTextarea() {
+	let windowWidth = $(window).width();
+	$("textarea").width(windowWidth - 85 - 20);
+	$(".user-comment").each(function (){
+		$(this).height(0);
+		let textHeight = $(this).get(0).scrollHeight;
+		$(this).height(textHeight);
 	});
-});
-
+}
 function resizeGalleryContainer() {
-	if ($("#side-menu").length == 0) {
-		console.log('hello');
-		return;
-	}
 	//gradient apply by height
-	let sideMenuHeight = $("#side-menu").height();
-	sideMenuHeight -= 75;
-	let heightHGC = $("#home-gallery-container").outerHeight();
-	heightHGC += (300);
-	console.log(sideMenuHeight, heightHGC);
-
-	if (sideMenuHeight > heightHGC) {
-		$("#home-container").height(sideMenuHeight);
-	} else {
-		$("#home-container").height(heightHGC);
-	}
+	let windowHeight = $(window).height();
+	$(window).css('min-height', windowHeight)
+	$("#home-container").css('min-height', windowHeight);
+	$("#side-menu").css('min-height', windowHeight);
 }

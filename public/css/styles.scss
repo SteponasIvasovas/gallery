@@ -53,6 +53,7 @@ $text-white075: rgba(255, 255, 255, 0.75);
 html,
 body {
   font-family: 'Quattrocento', serif !important;
+  background-color: rgba(47,55,54,0.1);
   // background-image: linear-gradient(to bottom, #FFFFFF 0%, #c4c4c4 100%);
 }
 #main-nav {
@@ -129,15 +130,12 @@ body {
     text-align: center;
     img {
       max-height: 800px;
-
     }
   }
   .image-description-container {
-    background-color: $bg-lighter;
     padding-bottom: 10px;
     .user-owner {
       position: relative;
-      background: $bg-darker;
       padding: 10px 5px;
       .user-avatar {
         width: 75px;
@@ -150,7 +148,7 @@ body {
         font-size: 40px;
         top: 0px;
         a {
-          color: white;
+          color: black;
         }
       }
       .user-name {
@@ -159,7 +157,7 @@ body {
         top: 55px;
         a {
           font-size: 20px;
-          color: $text-white075;
+          color: black;
         }
       }
       .tags-container {
@@ -172,11 +170,67 @@ body {
     .entry-description {
       margin-left: 5px;
       margin-top: 15px;
-      color: $text-white075;
+      color: black;
+    }
+  }
+  .form-new-comment {
+    padding: 0px;
+    padding-top: 10px;
+    .user-avatar {
+      width: 75px;
+      height: 75px;
+      border: 5px solid rgba(255, 255, 255, 0.5);
+      float: left;
+      margin-right: 10px;
+      margin-left: 5px;
+    }
+    textarea {
+      resize: none;
+    }
+    button {
+      margin-left: 90px;
+    }
+  }
+  .user-comments-container {
+    // background-image: linear-gradient(to bottom, #FFFFFF 0%, #c4c4c4 100%);
+    // background-color: rgba(47, 55, 54, 0.1);
+    padding-top: 10px;
+    .comment-container {
+      min-height: 150px;
+      position: relative;
+      .user-name-date {
+        margin-bottom: 0;
+        margin-left: 5px;
+      }
+      hr {
+        border-color: $bg-lighter;
+        margin: 5px;
+      }
+      textarea {
+        background-color: transparent;
+        border: 0;
+        padding: 0;
+        overflow: hidden;
+        resize: none;
+        height: auto;
+        cursor: default;
+      }
+      .user-avatar {
+        width: 75px;
+        height: 75px;
+        border: 5px solid rgba(255, 255, 255, 0.5);
+        float: left;
+        margin-right: 10px;
+        margin-left: 5px;
+      }
+      .button-panel {
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
     }
   }
 }
-
 /*********************************************/
 /*********************************************/
 /*********************************************/
@@ -184,9 +238,9 @@ body {
 #side-menu {
   z-index: 5;
   width: 250px;
-  height: 100%;
   position: fixed;
   background-color: rgba(47, 55, 54, 1);
+  min-height: 100vh;
   form {
     width: 200px;
     padding: 0;
@@ -275,6 +329,7 @@ body {
   margin-top: 75px;
   right: 0;
   width: 100%;
+  min-height: 100vh;
   background-image: linear-gradient(to bottom, #FFFFFF 0%, #c4c4c4 100%);
   #home-banner-container {
     height: 300px;
@@ -328,10 +383,12 @@ body {
     padding-top: 20px;
     padding-left: 20px;
     .home-gallery-entry-container {
+      // box-shadow: 0px 0px 6px 2px rgba(0,0,0,0.75);
       display: inline-block;
       position: relative;
       min-width: 200px;
-      height: 200px;
+      max-width: 500px;
+      height: 280px;
       overflow: hidden;
       margin-bottom: 20px;
       .gallery-entry-gradient {
@@ -339,7 +396,7 @@ body {
         top: 0;
         left: 0;
         width: 100%;
-        height: 200px;
+        height: 280px;
         padding: 0;
         margin: 0;
         z-index: 5;
@@ -361,8 +418,7 @@ body {
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        width: 95%;
-        box-shadow: 0px 0px 6px 2px rgba(0,0,0,0.75);
+        width: 100%;
       }
       .gallery-entry-fav {
         position: absolute;
@@ -419,6 +475,7 @@ body {
       }
     }
     .page-links {
+      width: 100%;
       margin: 0;
       .active {
         span {
@@ -567,7 +624,6 @@ body {
     overflow: hidden;
     resize: none;
     height: auto;
-    // height: 500px;
     cursor: default;
     text-align: justify;
   }

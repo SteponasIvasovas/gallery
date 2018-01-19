@@ -57,7 +57,9 @@
 		<div id="home-banner-info" class="text-center">
 			<img class="text-center" src="{{ asset('images/logo.png') }}" alt="">
 			<p>Place where you can share captured moments of your life with everyone in the world</p>
+			@auth
 			<a class="btn" href="{{ route('gallery-entry.create') }}">Submit</a>
+			@endauth
 		</div>
 	</div>
 	<div id="home-gallery-container" class="text-left">

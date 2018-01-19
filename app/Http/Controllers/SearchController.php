@@ -56,6 +56,16 @@ class SearchController extends Controller
     return view('home', compact('galleryEntries', 'categories'));
   }
 
+  public function searchTag($tag) {
+    $galleryEntries = GalleryEntry::select('*', 'gallery_entries.id as galleryEntryId', 'users.id as userId')
+    ->join('users', 'user_id', '=', 'users.id')
+    ->where('tags', 'like', '% '.$tag.' %')
+    ->paginate(10);
+    $categories = Category::all();
+
+    return view('home', compact('galleryEntries', 'categories'));
+  }
+
   public function filterCategory(Category $category) {
     $galleryEntries = GalleryEntry::select('*', 'gallery_entries.id as galleryEntryId', 'users.id as userId')
     ->join('users', 'user_id', '=', 'users.id')
@@ -65,6 +75,8 @@ class SearchController extends Controller
 
     return view('home', compact('galleryEntries', 'categories'));
   }
+
+
 
   public function paginate($items, $perPage = 15, $page = null, $options = [], $path = "")
   {
