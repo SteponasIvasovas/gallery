@@ -13,63 +13,57 @@ use Illuminate\Pagination\LengthAwarePaginator;
 class SearchController extends Controller
 {
   public function search(Request $request) {
-    $galleryEntries = GalleryEntry::where('title', 'like', '%'.$request->title.'%')
-                                    ->paginate(10);
-    $users = User::all();
+    $galleryEntries = GalleryEntry::select('*', 'gallery_entries.id as galleryEntryId', 'users.id as userId')
+    ->join('users', 'user_id', '=', 'users.id')
+    ->where('title', 'like', '%'.$request->title.'%')
+    ->paginate(10);
     $categories = Category::all();
 
-    return view('home', compact('galleryEntries', 'users', 'categories'));
+    return view('home', compact('galleryEntries', 'categories'));
   }
   public function searchAdvanced(Request $request) {
-    $users = User::all();
     $categories = Category::all();
-    $galleryEntries = GalleryEntry::all();
+    $query = GalleryEntry::select('*', 'gallery_entries.id as galleryEntryId', 'users.id as userId')
+    ->join('users', 'user_id', '=', 'users.id');
 
     if (isset($request->as_title_check)) {
-      $galleryEntries = $galleryEntries->intersect(GalleryEntry::where('title', 'like', '%'.$request->as_title.'%')->get());
+      $query = $query->where('title', 'like', '%'.$request->as_title.'%');
     }
 
     if (isset($request->as_tags_check)) {
-      $tags = explode(" ", $request->as_tags);
-
-      $first = true;
-      foreach($tags as $tag) {
-        if ($first) {
-          $first = false;
-          $galleryEntries = $galleryEntries->intersect(GalleryEntry::where('tags', 'like', '% '.$tag.' %')->get());
-        } else {
-          $galleryEntries = $galleryEntries->merge(GalleryEntry::where('tags', 'like', '% '.$tag.' %')->get());
+      $query = $query->where(function ($q) use ($request) {
+        $tags = explode(" ", $request->as_tags);
+        foreach($tags as $tag) {
+          $q->orWhere('tags', 'like', '% '.$tag.' %');
         }
-      }
+      });
     }
 
     if (isset($request->as_user_check)) {
-      $galleryEntries = $galleryEntries->intersect(GalleryEntry::join('users', 'user_id', '=', 'users.id')
-      ->where('users.username', 'like', '%'.$request->as_user.'%')->get());
+      $query = $query->where('username', 'like', '%'.$request->as_user.'%');
     }
 
     if (isset($request->as_category_check)) {
-      $first = true;
-      foreach($request->as_category as $category) {
-        if ($first) {
-          $first = false;
-          $galleryEntries = $galleryEntries->intersect(GalleryEntry::where('category_id', '=', $category)->get());
-        } else {
-          $galleryEntries = $galleryEntries->merge(GalleryEntry::where('category_id', '=', $category)->get());
+      $query = $query->where(function ($q) use ($request) {
+        foreach($request->as_category as $category) {
+          $q->orWhere('category_id', '=', $category);
         }
-      }
+      });
     }
 
-    $galleryEntries = $this->paginate($galleryEntries, $perPage = 10, $page = null, $options = [], $path = 'searchAdvanced');
-    return view('home', compact('galleryEntries', 'users', 'categories'));
+    $galleryEntries = $query->paginate(10);
+    // $galleryEntries = $this->paginate($galleryEntries, $perPage = 10, $page = null, $options = [], $path = 'searchAdvanced');
+    return view('home', compact('galleryEntries', 'categories'));
   }
 
   public function filterCategory(Category $category) {
-    $galleryEntries = GalleryEntry::where('category_id', '=', $category->id)->paginate(10);
-    $users = User::all();
+    $galleryEntries = GalleryEntry::select('*', 'gallery_entries.id as galleryEntryId', 'users.id as userId')
+    ->join('users', 'user_id', '=', 'users.id')
+    ->where('category_id', '=', $category->id)
+    ->paginate(10);
     $categories = Category::all();
 
-    return view('home', compact('galleryEntries', 'users', 'categories'));
+    return view('home', compact('galleryEntries', 'categories'));
   }
 
   public function paginate($items, $perPage = 15, $page = null, $options = [], $path = "")

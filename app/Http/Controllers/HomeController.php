@@ -27,9 +27,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-      $galleryEntries = GalleryEntry::paginate(10);
-      $users = User::all();
+      $galleryEntries = GalleryEntry::select('*', 'gallery_entries.id as galleryEntryId', 'users.id as userId')
+      ->join('users', 'user_id', '=', 'users.id')
+      ->orderBy('galleryEntryId')
+      ->paginate(10);
       $categories = Category::all();
-      return view('home', compact('galleryEntries', 'users', 'categories'));
+      return view('home', compact('galleryEntries', 'categories'));
     }
 }

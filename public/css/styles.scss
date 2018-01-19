@@ -117,6 +117,66 @@ body {
   margin-top: 75px;
   // background-image: linear-gradient(to bottom, #FFFFFF 0%, #c4c4c4 100%);
 }
+/** gallery-entry/show-blade.php **/
+#gallery-entry-show-container {
+  position: absolute;
+  width: 100%;
+  margin-top: 85px;
+  .image-container {
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 10px;
+    text-align: center;
+    img {
+      max-height: 800px;
+
+    }
+  }
+  .image-description-container {
+    background-color: $bg-lighter;
+    padding-bottom: 10px;
+    .user-owner {
+      position: relative;
+      background: $bg-darker;
+      padding: 10px 5px;
+      .user-avatar {
+        width: 75px;
+        height: 75px;
+        border: 5px solid rgba(255, 255, 255, 0.5);
+      }
+      .entry-title {
+        position: absolute;
+        left: 100px;
+        font-size: 40px;
+        top: 0px;
+        a {
+          color: white;
+        }
+      }
+      .user-name {
+        position: absolute;
+        left: 100px;
+        top: 55px;
+        a {
+          font-size: 20px;
+          color: $text-white075;
+        }
+      }
+      .tags-container {
+        margin-left: 95px;
+      }
+      .category-container {
+        margin-left: 95px;
+      }
+    }
+    .entry-description {
+      margin-left: 5px;
+      margin-top: 15px;
+      color: $text-white075;
+    }
+  }
+}
+
 /*********************************************/
 /*********************************************/
 /*********************************************/

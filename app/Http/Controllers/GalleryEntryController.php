@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Collection;
 // use Illuminate\Support\Facades\DB;
 // use Illuminate\Support\Facades\Input;
 // use Intervention\Image\Facades\Image;
@@ -71,17 +72,17 @@ class GalleryEntryController extends Controller
      */
     public function show(GalleryEntry $galleryEntry)
     {
-      // $users = User::distinct()->join('comments', 'users.id', '=', 'comments.user_id')->get();
-      $users = DB::table('users')
-      ->join('comments', 'users.id', '=', 'comments.user_id')
-      ->groupBy('id')
+      $userComments = User::join('comments', 'users.id', '=', 'comments.user_id')
+      ->where('comments.gallery_entry_id', '=', $galleryEntry->id)
+      ->orderBy('comments.created_at')
       ->get();
-                     // join('gallery_entries', 'gallery_entries.id', '=', 'comments.gallery_entry_id' )->get();
 
-      dd($users);
-      $comments = Comment::join('gallery_entries', 'gallery_entry_id', '=', 'gallery_entries.id')->get();
+      $tags = explode(' ', $galleryEntry->tags);
+      $galleryEntry = GalleryEntry::join('users', 'user_id', '=', 'users.id')
+      ->where('gallery_entries.id', '=', $galleryEntry->id)
+      ->first();
 
-      return view('gallery-entry.show', compact('galleryEntry', 'users', 'comments'));
+      return view('gallery-entry.show', compact('galleryEntry', 'userComments', 'tags'));
     }
 
     /**

@@ -63,7 +63,7 @@
 	<div id="home-gallery-container" class="text-left">
 			@foreach ($galleryEntries as $galleryEntry)
 				<div class="home-gallery-entry-container text-left">
-					<a href="{{ route('gallery-entry.show', $galleryEntry) }}">
+					<a href="{{ route('gallery-entry.show', $galleryEntry->galleryEntryId) }}">
 						<div class="gallery-entry-gradient">
 						</div>
 					</a>
@@ -74,16 +74,13 @@
 					</a>
 					@endauth
 					<h2>{{$galleryEntry->title}}</h2>
-					@foreach ($users as $user)
-						@if ($galleryEntry->user_id == $user->id)
-							<h3>
-								<a href="{{route('user.profile', $user)}}"><img src="{{$user->avatar}}"/><span>{{$user->username}}</span></a>
-							</h3>
-						@endif
-					@endforeach
+					<h3>
+						<a href="{{route('user.profile', $galleryEntry->userId)}}">
+						<img src="{{$galleryEntry->avatar}}"/><span>{{$galleryEntry->username}}</span></a>
+					</h3>
 					<p>
-						<span class=""><i class="fa fa-star" aria-hidden="true"></i>&nbsp;&nbsp;{{$galleryEntry->favorite_count}}</span>
-						<span class=""><i class="fa fa-comment" aria-hidden="true"></i>&nbsp;{{$galleryEntry->comment_count}}</span>
+						<span class=""><i class="fa fa-star" aria-hidden="true"></i>&nbsp;&nbsp;{{App\Favorite::where('gallery_entry_id', $galleryEntry->galleryEntryId)->count()}}</span>
+						<span class=""><i class="fa fa-comment" aria-hidden="true"></i>&nbsp;{{App\Comment::where('gallery_entry_id', $galleryEntry->galleryEntryId)->count()}}</span>
 					</p>
 				</div>
 			@endforeach
