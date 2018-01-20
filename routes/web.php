@@ -29,5 +29,9 @@ Route::get('/category/{category}', 'SearchController@filterCategory')->name('fil
 //CommentController
 Route::post('/comment/update', 'CommentController@update')->name('comment.update');
 Route::post('/comment/delete', 'CommentController@delete')->name('comment.delete');
+Route::post('/comment/post', 'CommentController@post')->name('comment.post');
+//FavoriteController
+Route::post('/favorite/add', 'FavoriteController@add')->name('favorite.add');
+Route::post('/favorite/remove', 'FavoriteController@remove')->name('favorite.remove');
 //GalleryEntryController
 Route::resource('/gallery-entry', 'GalleryEntryController');

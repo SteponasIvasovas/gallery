@@ -71,9 +71,19 @@
 					</a>
 					<img class="gallery-entry-image" src="{{$galleryEntry->image}}"/>
 					@auth
-					<a href="#" class="gallery-entry-fav">
-						<i class="fa fa-star-o" aria-hidden="true"></i>
-					</a>
+						@if (Auth::user()->id != $galleryEntry->user_id)
+							@if (App\Favorite::where('user_id', Auth::user()->id)
+							->where('gallery_entry_id', $galleryEntry->gallery_entry_id)
+							->get()->isEmpty())
+								<a data-user_id="{{Auth::user()->id}}" data-gallery_entry_id="{{$galleryEntry->gallery_entry_id}}" class="favorite-add gallery-entry-fav">
+									<i class="fa fa-star-o" aria-hidden="true"></i>
+								</a>
+							@else
+								<a data-id="{{$galleryEntry->gallery_entry_id}}" class="favorite-remove gallery-entry-fav">
+									<i class="fa fa-star" aria-hidden="true"></i>
+								</a>
+							@endif
+						@endif
 					@endauth
 					<h2>{{$galleryEntry->title}}</h2>
 					<h3>
@@ -110,14 +120,82 @@
 				$(searchBox).css({"display" : "none"});
 			}
 		});
-
+		$('.favorite-add').click(function() {
+			let url = '/favorite/add';
+			let thisButton = this;
+			let galleryEntryId = $(this).data('gallery_entry_id');
+			let userId = $(this).data('user_id');
+			console.log(galleryEntryId, userId);
+			$.ajaxSetup({
+	      headers: {
+	          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	      }
+	    });
+	    $.ajax({
+	      type: "POST",
+	      url: url,
+	      data: {gallery_entry_id : galleryEntryId,
+							 user_id : userId},
+	      dataType: "json",
+	      success: function (data) {
+					$(thisButton).removeClass('favorite-add');
+					$(thisButton).addClass('favorite-remove');
+					let icon = $('<i class="fa fa-star" aria-hidden="true"></i>');
+					$(thisButton).html(icon);
+	        console.log('Success');
+	        console.log(data);
+	      },
+	      error: function (error) {
+	        console.log('Error');
+	        console.log(error);
+	      }
+	    });
+	  });
+		$('.favorite-remove').click(function() {
+			let url = '/favorite/remove';
+			let thisButton = this;
+			let galleryEntryId = $(this).data('gallery_entry_id');
+			let userId = $(this).data('user_id');
+			$.ajaxSetup({
+	      headers: {
+	          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	      }
+	    });
+	    $.ajax({
+	      type: "POST",
+	      url: url,
+				data: {gallery_entry_id : galleryEntryId,
+							 user_id : userId},
+	      dataType: "json",
+	      success: function (data) {
+					$(thisButton).removeClass('favorite-remove');
+					$(thisButton).addClass('favorite-add');
+					let icon = $('<i class="fa fa-star-o" aria-hidden="true"></i>');
+					$(thisButton).html(icon);
+	        console.log('Success');
+	        console.log(data);
+	      },
+	      error: function (error) {
+	        console.log('Error');
+	        console.log(error);
+	      }
+	    });
+		})
 	});
+
 	$(window).on('resize', function() {
 		resizeGalleryContainer();
 	});
 	$(window).on('load', function() {
 		resizeGalleryContainer();
-		// $('.gallery-entry-image').each(function () {
+	});
+	function resizeGalleryContainer() {
+		let windowHeight = $(window).height();
+		$(window).css('min-height', windowHeight)
+		$("#home-container").css('min-height', windowHeight);
+		$("#side-menu").css('min-height', windowHeight);
+	}
+	// $('.gallery-entry-image').each(function () {
 		// 	let width = $(this).width();
 		// 	let height = $(this).height();
 		// 	let ratio = width / height;
@@ -134,12 +212,5 @@
 		// 		$(this).parent().css('min-width', '100px');
 		// 	}
 		// });
-	});
-	function resizeGalleryContainer() {
-		let windowHeight = $(window).height();
-		$(window).css('min-height', windowHeight)
-		$("#home-container").css('min-height', windowHeight);
-		$("#side-menu").css('min-height', windowHeight);
-	}
 
 </script>

@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{{ asset('css/styles.min.css') }}">
     <link href="{{ asset('css/profile.css') }}" rel="stylesheet">
     <!-- Scripts -->
-    
+
 
 </head>
 <body>
@@ -66,7 +66,7 @@
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    {{ Auth::user()->username }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">

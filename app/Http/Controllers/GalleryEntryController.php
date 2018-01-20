@@ -79,7 +79,8 @@ class GalleryEntryController extends Controller
       ->get();
 
       $tags = explode(' ', $galleryEntry->tags);
-      $galleryEntry = GalleryEntry::join('users', 'user_id', '=', 'users.id')
+      $galleryEntry = GalleryEntry::select('*', 'gallery_entries.id as gallery_entry_id')
+      ->join('users', 'user_id', '=', 'users.id')
       ->where('gallery_entries.id', '=', $galleryEntry->id)
       ->first();
 

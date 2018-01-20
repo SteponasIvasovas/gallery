@@ -25,9 +25,11 @@
     <p class="entry-description">{{$galleryEntry->description}}</p>
   </div>
 
-  <form class="form-new-comment" action="index.html" method="post">
+  <form class="new-comment-box" action="{{route('comment.post')}}" method="post">
+    {{csrf_field()}}
     <img class="user-avatar" src="{{$galleryEntry->avatar}}" alt="">
-    <textarea class="new-comment-post" name="name" rows="4" cols="80"></textarea>
+    <input type="hidden" name="gallery_entry_id" value="{{$galleryEntry->gallery_entry_id}}">
+    <textarea class="new-comment-post" name="text" rows="4" cols="80"></textarea>
     <button class="btn" type="submit" name="button">Submit</button>
   </form>
 

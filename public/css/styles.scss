@@ -37,7 +37,7 @@ $text-white075: rgba(255, 255, 255, 0.75);
   background-color: transparent;
 }
 .navbar-right {
-    margin-right: 15px;
+    margin-right: 0px;
 }
 .navbar-brand {
   padding: 0;
@@ -46,6 +46,7 @@ $text-white075: rgba(255, 255, 255, 0.75);
 .navbar-nav>li>a {
   padding-top: 26.5px;
   padding-bottom: 26.5px;
+  font-size: 16px
 }
 .disable-anchor-click {
   pointer-events: none;
@@ -179,7 +180,7 @@ body {
       color: black;
     }
   }
-  .form-new-comment {
+  .new-comment-box {
     padding: 0px;
     padding-top: 10px;
     margin-bottom: 0px;
@@ -434,13 +435,15 @@ body {
       }
       .gallery-entry-fav {
         position: absolute;
-        top: 0px;
-        right: 20px;
+        top: 0;
+        right: 0;
         padding: 0 15px;
         font-size: 30px;
         color: green;
-        background-color: rgba(100, 100, 100, 0.5);
+        background-color: rgba(0, 0, 0, 0.75);
         opacity: 0;
+        z-index: 5;
+        cursor: pointer;
       }
       h2 {
         z-index: 10;
