@@ -32,7 +32,7 @@ class CommentSeeder extends Seeder
           $this->comment->create([
             'user_id' => $user_ids->random(),
             'gallery_entry_id' => $galleryEntries_ids->random(),
-            'text' => $faker->text(1000),
+            'text' => $faker->realText(1000),
 
             'created_at' => new \DateTime(),
             'updated_at' => new \DateTime(),

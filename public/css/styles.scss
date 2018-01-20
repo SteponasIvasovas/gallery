@@ -47,10 +47,15 @@ $text-white075: rgba(255, 255, 255, 0.75);
   padding-top: 26.5px;
   padding-bottom: 26.5px;
 }
+.disable-anchor-click {
+  pointer-events: none;
+  text-decoration: underline;
+}
 /*********************************************/
 /*********************************************/
 /*********************************************/
-html,
+html {
+}
 body {
   font-family: 'Quattrocento', serif !important;
   background-color: rgba(47,55,54,0.1);
@@ -133,6 +138,7 @@ body {
     }
   }
   .image-description-container {
+    background-color: rgba(47,55,54,0.2);
     padding-bottom: 10px;
     .user-owner {
       position: relative;
@@ -176,6 +182,7 @@ body {
   .form-new-comment {
     padding: 0px;
     padding-top: 10px;
+    margin-bottom: 0px;
     .user-avatar {
       width: 75px;
       height: 75px;
@@ -227,6 +234,12 @@ body {
         position: absolute;
         right: 0;
         top: 0;
+      }
+      .extra-buttons {
+        // position:absolute;
+        // bottom: 0;
+        margin-top: 10px;
+        margin-left: 90px;
       }
     }
   }
@@ -383,12 +396,11 @@ body {
     padding-top: 20px;
     padding-left: 20px;
     .home-gallery-entry-container {
-      // box-shadow: 0px 0px 6px 2px rgba(0,0,0,0.75);
       display: inline-block;
       position: relative;
       min-width: 200px;
       max-width: 500px;
-      height: 280px;
+      height: 200px;
       overflow: hidden;
       margin-bottom: 20px;
       .gallery-entry-gradient {
@@ -396,7 +408,7 @@ body {
         top: 0;
         left: 0;
         width: 100%;
-        height: 280px;
+        height: 200px;
         padding: 0;
         margin: 0;
         z-index: 5;

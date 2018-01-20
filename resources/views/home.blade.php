@@ -65,7 +65,7 @@
 	<div id="home-gallery-container" class="text-left">
 			@foreach ($galleryEntries as $galleryEntry)
 				<div class="home-gallery-entry-container text-left">
-					<a href="{{ route('gallery-entry.show', $galleryEntry->galleryEntryId) }}">
+					<a href="{{ route('gallery-entry.show', $galleryEntry->gallery_entry_id) }}">
 						<div class="gallery-entry-gradient">
 						</div>
 					</a>
@@ -77,12 +77,12 @@
 					@endauth
 					<h2>{{$galleryEntry->title}}</h2>
 					<h3>
-						<a href="{{route('user.profile', $galleryEntry->userId)}}">
+						<a href="{{route('user.profile', $galleryEntry->user_id)}}">
 						<img src="{{$galleryEntry->avatar}}"/><span>{{$galleryEntry->username}}</span></a>
 					</h3>
 					<p>
-						<span class=""><i class="fa fa-star" aria-hidden="true"></i>&nbsp;&nbsp;{{App\Favorite::where('gallery_entry_id', $galleryEntry->galleryEntryId)->count()}}</span>
-						<span class=""><i class="fa fa-comment" aria-hidden="true"></i>&nbsp;{{App\Comment::where('gallery_entry_id', $galleryEntry->galleryEntryId)->count()}}</span>
+						<span class=""><i class="fa fa-star" aria-hidden="true"></i>&nbsp;&nbsp;{{App\Favorite::where('gallery_entry_id', $galleryEntry->gallery_entry_id)->count()}}</span>
+						<span class=""><i class="fa fa-comment" aria-hidden="true"></i>&nbsp;{{App\Comment::where('gallery_entry_id', $galleryEntry->gallery_entry_id)->count()}}</span>
 					</p>
 				</div>
 			@endforeach
@@ -92,3 +92,54 @@
 	</div>
 </div>
 @endsection
+<script src="{{asset('js/jquery-3.2.1.min.js')}}"></script>
+<script src="{{asset('js/justifiedGallery.js')}}"></script>
+<script type="text/javascript">
+	"use strict"
+	$(document).ready(function() {
+		// var jqueryObj = $;
+		// jqueryObj("#home-gallery-container").justifiedGallery();
+		//hide/unhide advanced search
+		$(".search-checks input[type='checkbox']").change(function() {
+			let searchBox = $(this).parent().next();
+			let display = $(searchBox).css('display');
+
+			if (display == "none") {
+				$(searchBox).css('display', 'block');
+			} else {
+				$(searchBox).css({"display" : "none"});
+			}
+		});
+
+	});
+	$(window).on('resize', function() {
+		resizeGalleryContainer();
+	});
+	$(window).on('load', function() {
+		resizeGalleryContainer();
+		// $('.gallery-entry-image').each(function () {
+		// 	let width = $(this).width();
+		// 	let height = $(this).height();
+		// 	let ratio = width / height;
+		// 	console.log(width, height, ratio);
+		// 	if (ratio >= 2.5) {
+		// 		$(this).parent().css('min-width', '500px');
+		// 	} else if (ratio >= 2) {
+		// 		$(this).parent().css('min-width', '400px');
+		// 	} else if (ratio >= 1.5) {
+		// 		$(this).parent().css('min-width', '300px');
+		// 	} else if (ratio >= 1) {
+		// 		$(this).parent().css('min-width', '200px');
+		// 	} else {
+		// 		$(this).parent().css('min-width', '100px');
+		// 	}
+		// });
+	});
+	function resizeGalleryContainer() {
+		let windowHeight = $(window).height();
+		$(window).css('min-height', windowHeight)
+		$("#home-container").css('min-height', windowHeight);
+		$("#side-menu").css('min-height', windowHeight);
+	}
+
+</script>

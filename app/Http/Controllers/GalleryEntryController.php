@@ -72,7 +72,8 @@ class GalleryEntryController extends Controller
      */
     public function show(GalleryEntry $galleryEntry)
     {
-      $userComments = User::join('comments', 'users.id', '=', 'comments.user_id')
+      $userComments = User::select('*', 'comments.id as comment_id')
+      ->join('comments', 'users.id', '=', 'comments.user_id')
       ->where('comments.gallery_entry_id', '=', $galleryEntry->id)
       ->orderBy('comments.created_at')
       ->get();
