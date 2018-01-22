@@ -19,7 +19,7 @@ class FavoriteController extends Controller
   public function remove(Request $request) {
     // $galleryEntry = GalleryEntry::find($request->id);
     $favorite = Favorite::where('user_id', $request->user_id)
-    ->where('gallery_entry_id', $request->gallery_entry_id)->get();
+    ->where('gallery_entry_id', $request->gallery_entry_id)->first();
     $favorite->delete();
     echo json_encode("Delete successful");
   }

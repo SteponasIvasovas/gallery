@@ -12,13 +12,21 @@ paginationo stilius +
 gradiento scriptas +
 kategorijos sone +
 paspaudus ant paveiksliuko nukreipimas i isdidinta paveiksliuka +
-bannerio mygtukas tik prisiloginus
+bannerio mygtukas tik prisiloginus +
+
+neveikia droplinkas +
+sugedo searcho collapsas +
+paveiksliuko ikelimas
+paveiksliuko redagavimas
+profilio redagavimas
+favoritu galerija
 
 prisiloginus :
-pafovoritint su scriptu
-negali favoritint savo
+pafovoritint su scriptu +
+negali favoritint savo +
+suderinti favoritinimo spalvas
 desiniame sone navbare dropdown su nuorodimis i profili, i galerija, i favoritus, i logout
-kairiam sone navbare submitas imageo
+kairiam sone navbare submitas imageo +
 
 bonus:
 perziuros metodas - slideris

@@ -1,10 +1,25 @@
 @extends('layouts.app')
-
 @section('content')
-
 <div id="gallery-entry-show-container">
   <div class="image-container">
     <img src="{{$galleryEntry->image}}" alt="">
+    @auth
+    <div class="favorite-button">
+        @if (Auth::user()->id != $galleryEntry->user_id)
+          @if (App\Favorite::where('user_id', Auth::user()->id)
+          ->where('gallery_entry_id', $galleryEntry->gallery_entry_id)
+          ->get()->isEmpty())
+            <a data-user_id="{{Auth::user()->id}}" data-gallery_entry_id="{{$galleryEntry->gallery_entry_id}}" class="favorite-add gallery-entry-fav">
+              <i class="fa fa-star-o" aria-hidden="true"></i>Add&nbsp;to&nbsp;favorites
+            </a>
+          @else
+            <a data-user_id="{{Auth::user()->id}}" data-gallery_entry_id="{{$galleryEntry->gallery_entry_id}}" class="favorite-remove gallery-entry-fav">
+              <i class="fa fa-star" aria-hidden="true"></i>Remove&nbsp;from&nbsp;favorites
+            </a>
+          @endif
+        @endif
+    </div>
+    @endauth
   </div>
   <div class="image-description-container">
     <div class="user-owner">
@@ -24,14 +39,15 @@
     </div>
     <p class="entry-description">{{$galleryEntry->description}}</p>
   </div>
-
+  @auth
   <form class="new-comment-box" action="{{route('comment.post')}}" method="post">
     {{csrf_field()}}
-    <img class="user-avatar" src="{{$galleryEntry->avatar}}" alt="">
+    <img class="user-avatar" src="{{Auth::user()->avatar}}" alt="">
     <input type="hidden" name="gallery_entry_id" value="{{$galleryEntry->gallery_entry_id}}">
     <textarea class="new-comment-post" name="text" rows="4" cols="80"></textarea>
     <button class="btn" type="submit" name="button">Submit</button>
   </form>
+  @endauth
 
   <div class="user-comments-container">
     @foreach ($userComments as $userComment)
@@ -43,16 +59,24 @@
       <hr>
       <img class="user-avatar" src="{{$userComment->avatar}}" alt="">
       <textarea data-id="{{$userComment->comment_id}}" class="user-comment" disabled>{{$userComment->text}}</textarea>
-      <div class="button-panel">
-        <a class="btn edit-comment">Edit</a>
-        <a class="btn delete-comment">Delete</a>
-      </div>
+      @auth
+        @if ($userComment->user_id == Auth::user()->id)
+          <div class="button-panel">
+            <a class="btn edit-comment">Edit</a>
+            <a class="btn delete-comment">Delete</a>
+          </div>
+        @endif
+      @endauth
     </div>
     @endforeach
   </div>
 </div>
 @endsection
 <script src="{{asset('js/jquery-3.2.1.min.js')}}"></script>
+<script src="{{asset('js/justifiedGallery.js')}}"></script>
+<script src="{{asset('js/script.js')}}"></script>
+<script src="{{asset('js/app.js') }}"></script>
+<script src="{{asset('js/profile.js') }}"></script>
 <script type="text/javascript">
 "use strict"
 $(document).ready(function() {
@@ -152,6 +176,16 @@ $(document).ready(function() {
       }
     });
   });
+  $('.favorite-add').click(function () {
+    addFavorite(this,
+    '<i class="fa fa-star" aria-hidden="true"></i>Remove&nbsp;from&nbsp;favorites',
+    '<i class="fa fa-star-o" aria-hidden="true"></i>Add&nbsp;to&nbsp;favorites',);
+  });
+  $('.favorite-remove').click(function() {
+    removeFavorite(this,
+    '<i class="fa fa-star-o" aria-hidden="true"></i>Add&nbsp;to&nbsp;favorites',
+    '<i class="fa fa-star" aria-hidden="true"></i>Remove&nbsp;from&nbsp;favorites');
+  });
 });
 
 $(window).on('resize', function() {
@@ -164,7 +198,7 @@ $(window).on('load', function() {
 
 function resizeGalleryEntryTextarea() {
 	let windowWidth = $(window).width();
-	$("textarea").width(windowWidth - 85 - 20);
+	$("textarea").width(windowWidth - 95 - 20);
 	$(".user-comment").each(function (){
 		$(this).height(0);
 		let textHeight = $(this).get(0).scrollHeight;

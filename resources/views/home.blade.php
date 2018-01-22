@@ -3,7 +3,7 @@
 <div id="side-menu">
 	<form id="as" class="navbar-form navbar-left" role="search" action="{{route('searchAdvanced')}}" method="get">
 		{{ csrf_field() }}
-		<h3><a href="#as-panel" data-toggle="collapse">Advanced search</a></h3>
+		<h3><a data-target="#as-panel" data-toggle="collapse">Advanced search</a></h3>
 		<hr>
 		<div id="as-panel" class="collapse">
 			<div class="search-checks form-check">
@@ -79,7 +79,7 @@
 									<i class="fa fa-star-o" aria-hidden="true"></i>
 								</a>
 							@else
-								<a data-id="{{$galleryEntry->gallery_entry_id}}" class="favorite-remove gallery-entry-fav">
+								<a data-user_id="{{Auth::user()->id}}" data-gallery_entry_id="{{$galleryEntry->gallery_entry_id}}" class="favorite-remove gallery-entry-fav">
 									<i class="fa fa-star" aria-hidden="true"></i>
 								</a>
 							@endif
@@ -104,6 +104,8 @@
 @endsection
 <script src="{{asset('js/jquery-3.2.1.min.js')}}"></script>
 <script src="{{asset('js/justifiedGallery.js')}}"></script>
+<script src="{{asset('js/script.js')}}"></script>
+<script src="{{asset('js/profile.js') }}"></script>
 <script type="text/javascript">
 	"use strict"
 	$(document).ready(function() {
@@ -120,67 +122,16 @@
 				$(searchBox).css({"display" : "none"});
 			}
 		});
-		$('.favorite-add').click(function() {
-			let url = '/favorite/add';
-			let thisButton = this;
-			let galleryEntryId = $(this).data('gallery_entry_id');
-			let userId = $(this).data('user_id');
-			console.log(galleryEntryId, userId);
-			$.ajaxSetup({
-	      headers: {
-	          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	      }
-	    });
-	    $.ajax({
-	      type: "POST",
-	      url: url,
-	      data: {gallery_entry_id : galleryEntryId,
-							 user_id : userId},
-	      dataType: "json",
-	      success: function (data) {
-					$(thisButton).removeClass('favorite-add');
-					$(thisButton).addClass('favorite-remove');
-					let icon = $('<i class="fa fa-star" aria-hidden="true"></i>');
-					$(thisButton).html(icon);
-	        console.log('Success');
-	        console.log(data);
-	      },
-	      error: function (error) {
-	        console.log('Error');
-	        console.log(error);
-	      }
-	    });
-	  });
+		$('.favorite-add').click(function () {
+			addFavorite(this,
+			'<i class="fa fa-star" aria-hidden="true"></i>',
+			'<i class="fa fa-star-o" aria-hidden="true"></i>');
+		});
 		$('.favorite-remove').click(function() {
-			let url = '/favorite/remove';
-			let thisButton = this;
-			let galleryEntryId = $(this).data('gallery_entry_id');
-			let userId = $(this).data('user_id');
-			$.ajaxSetup({
-	      headers: {
-	          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	      }
-	    });
-	    $.ajax({
-	      type: "POST",
-	      url: url,
-				data: {gallery_entry_id : galleryEntryId,
-							 user_id : userId},
-	      dataType: "json",
-	      success: function (data) {
-					$(thisButton).removeClass('favorite-remove');
-					$(thisButton).addClass('favorite-add');
-					let icon = $('<i class="fa fa-star-o" aria-hidden="true"></i>');
-					$(thisButton).html(icon);
-	        console.log('Success');
-	        console.log(data);
-	      },
-	      error: function (error) {
-	        console.log('Error');
-	        console.log(error);
-	      }
-	    });
-		})
+			removeFavorite(this,
+			'<i class="fa fa-star-o" aria-hidden="true"></i>',
+			'<i class="fa fa-star" aria-hidden="true"></i>');
+		});
 	});
 
 	$(window).on('resize', function() {
@@ -195,6 +146,7 @@
 		$("#home-container").css('min-height', windowHeight);
 		$("#side-menu").css('min-height', windowHeight);
 	}
+
 	// $('.gallery-entry-image').each(function () {
 		// 	let width = $(this).width();
 		// 	let height = $(this).height();

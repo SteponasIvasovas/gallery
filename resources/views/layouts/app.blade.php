@@ -12,10 +12,10 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Quattrocento:400,700" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/justifiedGallery.min.css') }}">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/justifiedGallery.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/styles.min.css') }}">
-    <link href="{{ asset('css/profile.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
     <!-- Scripts -->
 
 
@@ -88,13 +88,13 @@
                 </div>
             </div>
         </nav>
-
+        <!-- Scripts -->
         @yield('content')
     </div>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
-    <script src="{{ asset('js/profile.js') }}"></script>
+    <script src="{{asset('js/jquery-3.2.1.min.js')}}"></script>
+    <script src="{{asset('js/script.js')}}"></script>
+    <script src="{{asset('js/app.js') }}"></script>
+    <script src="{{asset('js/profile.js') }}"></script>
 </body>
 </html>

@@ -40,55 +40,75 @@ $(document).ready(function() {
 	/****************************/
 	/****************************/
 	/****************************/
-
 	//galleryEntry view
 });
 
-// $(window).on('resize', function() {
-	// regex =/^\/user\/\d+$/;
-	// if (regex.test(window.location.pathname)) {
-		//textarea height user profile
-	// 	let textHeight = $("#user-about").get(0).scrollHeight;
-	// 	$("#user-about").height(textHeight);
-	// }
-	// resizeGalleryContainer();
-// });
-
-
-
-// $(window).on('load', function () {
-// 	$(".gallery-entry-image").each(function (index) {
-// 		var width = $(this).width();
-// 		var height = $(this).height();
-// 		let ratio = width / height;
-//
-// 		if (ratio >= 1) {
-// 			let width = 200 * ratio;
-// 			width = Math.round(width);
-//
-// 			if (width > 400) {
-// 				width = 400;
-// 			}
-//
-// 			css = {"min-width": width.toString() + "px", "height":"200px"};
-// 			$(this).parent().css(css);
-// 			css = {"width" : "95%", "height" : "auto"};
-// 			$(this).css(css);
-// 		} else if (ratio < 1) {
-// 			let width = 200 * ratio;
-// 			width = Math.round(width);
-//
-// 			if (width <= 100) {
-// 				width = 100;
-// 			}
-// 			if (width > 400) {
-// 				width = 400;
-// 			}
-//
-// 			css = {"min-width": width.toString() + "px", "height":"200px"};
-// 			$(this).parent().css(css);
-// 			css = {"width" : "auto", "height" : "95%"};
-// 			$(this).css(css);
-// 		}
-// 	});
-// });
+function addFavorite(e, el, el2) {
+	let url = '/favorite/add';
+	let thisButton = e;
+	let galleryEntryId = $(e).data('gallery_entry_id');
+	let userId = $(e).data('user_id');
+	console.log(galleryEntryId, userId);
+	$.ajaxSetup({
+		headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
+	$.ajax({
+		type: "POST",
+		url: url,
+		data: {gallery_entry_id : galleryEntryId,
+					 user_id : userId},
+		dataType: "json",
+		success: function (data) {
+			$(thisButton).removeClass('favorite-add');
+			$(thisButton).addClass('favorite-remove');
+			// let icon = $(el);
+			$(thisButton).html(el);
+			$(thisButton).off('click');
+			$(thisButton).on('click', function() {
+				removeFavorite(thisButton, el2);
+			});
+			console.log('Success');
+			console.log(data);
+		},
+		error: function (error) {
+			console.log('Error');
+			console.log(error);
+		}
+	});
+}
+function removeFavorite(e, el, el2) {
+	let url = '/favorite/remove';
+	let thisButton = e;
+	let galleryEntryId = $(e).data('gallery_entry_id');
+	let userId = $(e).data('user_id');
+	$.ajaxSetup({
+		headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
+	$.ajax({
+		type: "POST",
+		url: url,
+		data: {gallery_entry_id : galleryEntryId,
+					 user_id : userId},
+		dataType: "json",
+		success: function (data) {
+			$(thisButton).removeClass('favorite-remove');
+			$(thisButton).addClass('favorite-add');
+			// let icon = $(el);
+			$(thisButton).html(el);
+			$(thisButton).off('click');
+			$(thisButton).on('click', function() {
+				addFavorite(thisButton, el2);
+			});
+			console.log('Success');
+			console.log(data);
+		},
+		error: function (error) {
+			console.log('Error');
+			console.log(error);
+		}
+	});
+}
