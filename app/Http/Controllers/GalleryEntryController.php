@@ -4,6 +4,7 @@
 namespace App\Http\Controllers;
 
 use DateTime;
+use Auth;
 use App\User;
 use App\GalleryEntry;
 use App\Comment;
@@ -56,9 +57,10 @@ class GalleryEntryController extends Controller
       $galleryEntry->tags = $request->tags;
 
       $name = $request->file('image')->getClientOriginalName();
+      $path = 'public/images/'.Auth::user()->id.'/';
       $date = new DateTime();
-      $request->file('image')->storeAs('public/images', $date->getTimestamp().$name);
-      $galleryEntry->image = $date->getTimestamp().$name;
+      $request->file('image')->storeAs($path, $date->getTimestamp().$name);
+      $galleryEntry->image = $path.$date->getTimestamp().$name;
 
       Auth::user()->galleryEntries()->save($galleryEntry);
       return redirect('/')->with(['message' => 'Gallery entry successfully submitted']);
@@ -72,14 +74,14 @@ class GalleryEntryController extends Controller
      */
     public function show(GalleryEntry $galleryEntry)
     {
-      $userComments = User::select('*', 'comments.id as comment_id')
+      $userComments = User::select('*', 'users.id as userId', 'comments.id as commentId')
       ->join('comments', 'users.id', '=', 'comments.user_id')
       ->where('comments.gallery_entry_id', '=', $galleryEntry->id)
       ->orderBy('comments.created_at')
       ->get();
 
       $tags = explode(' ', $galleryEntry->tags);
-      $galleryEntry = GalleryEntry::select('*', 'gallery_entries.id as gallery_entry_id')
+      $galleryEntry = GalleryEntry::select('*', 'users.id as userId', 'gallery_entries.id as galleryEntryId')
       ->join('users', 'user_id', '=', 'users.id')
       ->where('gallery_entries.id', '=', $galleryEntry->id)
       ->first();

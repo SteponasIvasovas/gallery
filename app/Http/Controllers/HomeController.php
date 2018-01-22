@@ -29,9 +29,10 @@ class HomeController extends Controller
     public function index()
     {
       // dd(Auth::user());
-      $galleryEntries = GalleryEntry::select('*', 'gallery_entries.id as gallery_entry_id', 'users.id as user_id')
+      $galleryEntries = GalleryEntry::select('*', 'gallery_entries.id as galleryEntryId',
+      'users.id as userId')
       ->join('users', 'user_id', '=', 'users.id')
-      ->orderBy('gallery_entry_id')
+      ->orderBy('galleryEntryId')
       ->paginate(12);
       $categories = Category::all();
       return view('home', compact('galleryEntries', 'categories'));

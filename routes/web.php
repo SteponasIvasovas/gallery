@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 //UserController
 Route::get('/user/{user}/gallery', 'UserController@gallery')->name('user.gallery');
+Route::get('/user/{user}/favorites', 'UserController@favorites')->name('user.favorites');
 Route::get('/user/{user}', 'UserController@profile')->name('user.profile');
 //SearchController
 Route::get('/search', 'SearchController@search')->name('search');
@@ -35,3 +36,38 @@ Route::post('/favorite/add', 'FavoriteController@add')->name('favorite.add');
 Route::post('/favorite/remove', 'FavoriteController@remove')->name('favorite.remove');
 //GalleryEntryController
 Route::resource('/gallery-entry', 'GalleryEntryController');
+
+//Stored image display
+Route::get('{route}/{profile}/public/images/{user}/{filename}', function ($route, $profile, $user, $filename) {
+  $path = storage_path('app/public/images/' . $user . '/' . $filename);
+  if (!File::exists($path)) {
+      abort(404);
+  }
+  $file = File::get($path);
+  $type = File::mimeType($path);
+  $response = Response::make($file, 200);
+  $response->header("Content-Type", $type);
+  return $response;
+});
+Route::get('public/images/{user}/{filename}', function ($user, $filename) {
+  $path = storage_path('app/public/images/' . $user . '/' . $filename);
+  if (!File::exists($path)) {
+      abort(404);
+  }
+  $file = File::get($path);
+  $type = File::mimeType($path);
+  $response = Response::make($file, 200);
+  $response->header("Content-Type", $type);
+  return $response;
+});
+Route::get('{route}/public/images/{user}/{filename}', function ($route, $user, $filename) {
+    $path = storage_path('app/public/images/' . $user . '/' . $filename);
+    if (!File::exists($path)) {
+        abort(404);
+    }
+    $file = File::get($path);
+    $type = File::mimeType($path);
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+    return $response;
+});

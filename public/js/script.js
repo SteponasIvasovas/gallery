@@ -49,6 +49,13 @@ function addFavorite(e, el, el2) {
 	let galleryEntryId = $(e).data('gallery_entry_id');
 	let userId = $(e).data('user_id');
 	console.log(galleryEntryId, userId);
+	$(thisButton).removeClass('favorite-add');
+	$(thisButton).addClass('favorite-remove');
+	$(thisButton).html(el);
+	$(thisButton).off('click');
+	$(thisButton).on('click', function() {
+		removeFavorite(thisButton, el2);
+	});
 	$.ajaxSetup({
 		headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -61,14 +68,6 @@ function addFavorite(e, el, el2) {
 					 user_id : userId},
 		dataType: "json",
 		success: function (data) {
-			$(thisButton).removeClass('favorite-add');
-			$(thisButton).addClass('favorite-remove');
-			// let icon = $(el);
-			$(thisButton).html(el);
-			$(thisButton).off('click');
-			$(thisButton).on('click', function() {
-				removeFavorite(thisButton, el2);
-			});
 			console.log('Success');
 			console.log(data);
 		},
@@ -83,6 +82,13 @@ function removeFavorite(e, el, el2) {
 	let thisButton = e;
 	let galleryEntryId = $(e).data('gallery_entry_id');
 	let userId = $(e).data('user_id');
+	$(thisButton).removeClass('favorite-remove');
+	$(thisButton).addClass('favorite-add');
+	$(thisButton).html(el);
+	$(thisButton).off('click');
+	$(thisButton).on('click', function() {
+		addFavorite(thisButton, el2);
+	});
 	$.ajaxSetup({
 		headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -95,14 +101,6 @@ function removeFavorite(e, el, el2) {
 					 user_id : userId},
 		dataType: "json",
 		success: function (data) {
-			$(thisButton).removeClass('favorite-remove');
-			$(thisButton).addClass('favorite-add');
-			// let icon = $(el);
-			$(thisButton).html(el);
-			$(thisButton).off('click');
-			$(thisButton).on('click', function() {
-				addFavorite(thisButton, el2);
-			});
 			console.log('Success');
 			console.log(data);
 		},

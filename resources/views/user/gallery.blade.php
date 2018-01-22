@@ -3,7 +3,7 @@
   <div id="user-gallery-container">
     @foreach ($galleryEntries as $galleryEntry)
       <div class="home-gallery-entry-container text-left">
-        <a href="{{ route('gallery-entry.show', $galleryEntry->gallery_entry_id) }}">
+        <a href="{{ route('gallery-entry.show', $galleryEntry->galleryEntryId) }}">
           <div class="gallery-entry-gradient">
           </div>
         </a>
@@ -11,13 +11,13 @@
         @auth
           @if (Auth::user()->id != $galleryEntry->user_id)
             @if (App\Favorite::where('user_id', Auth::user()->id)
-            ->where('gallery_entry_id', $galleryEntry->gallery_entry_id)
+            ->where('gallery_entry_id', $galleryEntry->galleryEntryId)
             ->get()->isEmpty())
-              <a data-user_id="{{Auth::user()->id}}" data-gallery_entry_id="{{$galleryEntry->gallery_entry_id}}" class="favorite-add gallery-entry-fav">
+              <a data-user_id="{{Auth::user()->id}}" data-gallery_entry_id="{{$galleryEntry->galleryEntryId}}" class="favorite-add gallery-entry-fav">
                 <i class="fa fa-star-o" aria-hidden="true"></i>
               </a>
             @else
-              <a data-user_id="{{Auth::user()->id}}" data-gallery_entry_id="{{$galleryEntry->gallery_entry_id}}" class="favorite-remove gallery-entry-fav">
+              <a data-user_id="{{Auth::user()->id}}" data-gallery_entry_id="{{$galleryEntry->galleryEntryId}}" class="favorite-remove gallery-entry-fav">
                 <i class="fa fa-star" aria-hidden="true"></i>
               </a>
             @endif
@@ -29,8 +29,8 @@
           <img src="{{$galleryEntry->avatar}}"/><span>{{$galleryEntry->username}}</span></a>
         </h3>
         <p>
-          <span class=""><i class="fa fa-star" aria-hidden="true"></i>&nbsp;{{App\Favorite::where('gallery_entry_id', $galleryEntry->gallery_entry_id)->count()}}</span>
-          <span class=""><i class="fa fa-comment" aria-hidden="true"></i>&nbsp;{{App\Comment::where('gallery_entry_id', $galleryEntry->gallery_entry_id)->count()}}</span>
+          <span class=""><i class="fa fa-star" aria-hidden="true"></i>&nbsp;{{App\Favorite::where('gallery_entry_id', $galleryEntry->galleryEntryId)->count()}}</span>
+          <span class=""><i class="fa fa-comment" aria-hidden="true"></i>&nbsp;{{App\Comment::where('gallery_entry_id', $galleryEntry->galleryEntryId)->count()}}</span>
         </p>
       </div>
     @endforeach

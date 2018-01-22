@@ -5,16 +5,16 @@
     <img src="{{$galleryEntry->image}}" alt="">
     @auth
     <div class="favorite-button">
-        @if (Auth::user()->id != $galleryEntry->user_id)
+        @if (Auth::user()->id != $galleryEntry->userId)
           @if (App\Favorite::where('user_id', Auth::user()->id)
-          ->where('gallery_entry_id', $galleryEntry->gallery_entry_id)
+          ->where('gallery_entry_id', $galleryEntry->galleryEntryId)
           ->get()->isEmpty())
-            <a data-user_id="{{Auth::user()->id}}" data-gallery_entry_id="{{$galleryEntry->gallery_entry_id}}" class="favorite-add gallery-entry-fav">
-              <i class="fa fa-star-o" aria-hidden="true"></i>Add&nbsp;to&nbsp;favorites
+            <a data-user_id="{{Auth::user()->id}}" data-gallery_entry_id="{{$galleryEntry->galleryEntryId}}" class="favorite-add gallery-entry-fav">
+              <i class="fa fa-star-o" aria-hidden="true"></i>&nbsp;Add&nbsp;to&nbsp;favorites
             </a>
           @else
-            <a data-user_id="{{Auth::user()->id}}" data-gallery_entry_id="{{$galleryEntry->gallery_entry_id}}" class="favorite-remove gallery-entry-fav">
-              <i class="fa fa-star" aria-hidden="true"></i>Remove&nbsp;from&nbsp;favorites
+            <a data-user_id="{{Auth::user()->id}}" data-gallery_entry_id="{{$galleryEntry->galleryEntryId}}" class="favorite-remove gallery-entry-fav">
+              <i class="fa fa-star" aria-hidden="true"></i>&nbsp;Remove&nbsp;from&nbsp;favorites
             </a>
           @endif
         @endif
@@ -23,9 +23,9 @@
   </div>
   <div class="image-description-container">
     <div class="user-owner">
-      <a href="{{route('user.profile', $galleryEntry->user_id)}}"><img class="user-avatar" src="{{$galleryEntry->avatar}}"></a>
+      <a href="{{route('user.profile', $galleryEntry->userId)}}"><img class="user-avatar" src="{{$galleryEntry->avatar}}"></a>
       <span class="entry-title"><a href="#">{{$galleryEntry->title}}</a></span>
-      <span class="user-name">by&nbsp;:&nbsp;<a href="{{route('user.profile', $galleryEntry->user_id)}}">{{$galleryEntry->username}}</a></span>
+      <span class="user-name">by&nbsp;:&nbsp;<a href="{{route('user.profile', $galleryEntry->userId)}}">{{$galleryEntry->username}}</a></span>
       <div class="tags-container">
         <span>tags&nbsp;:&nbsp;</span>
         @foreach ($tags as $tag)
@@ -34,7 +34,9 @@
       </div>
       <div class="category-container">
         <span>category&nbsp;:&nbsp;</span>
-        <a href="{{route('filterCategory', App\Category::find($galleryEntry->category_id))}}">{{App\Category::find($galleryEntry->category_id)->name}}</a>
+        @if (App\Category::find($galleryEntry->category_id))
+          <a href="{{route('filterCategory', App\Category::find($galleryEntry->category_id))}}">{{App\Category::find($galleryEntry->category_id)->name}}</a>
+        @endif
       </div>
     </div>
     <p class="entry-description">{{$galleryEntry->description}}</p>
@@ -43,7 +45,7 @@
   <form class="new-comment-box" action="{{route('comment.post')}}" method="post">
     {{csrf_field()}}
     <img class="user-avatar" src="{{Auth::user()->avatar}}" alt="">
-    <input type="hidden" name="gallery_entry_id" value="{{$galleryEntry->gallery_entry_id}}">
+    <input type="hidden" name="gallery_entry_id" value="{{$galleryEntry->galleryEntryId}}">
     <textarea class="new-comment-post" name="text" rows="4" cols="80"></textarea>
     <button class="btn" type="submit" name="button">Submit</button>
   </form>
@@ -54,13 +56,13 @@
     <div class="comment-container">
       <hr>
       <p class="user-name-date">
-        Comment&nbsp;by&nbsp;<a href="{{ route('user.profile', $userComment->user_id) }}">{{$userComment->username}}</a>&nbsp;posted&nbsp;on&nbsp;{{$userComment->created_at}}@if ($userComment->created_at != $userComment->updated_at)&nbsp;edited on {{$userComment->updated_at}}@endif
+        Comment&nbsp;by&nbsp;<a href="{{ route('user.profile', $userComment->userId) }}">{{$userComment->username}}</a>&nbsp;posted&nbsp;on&nbsp;{{$userComment->created_at}}@if ($userComment->created_at != $userComment->updated_at)&nbsp;edited on {{$userComment->updated_at}}@endif
       </p>
       <hr>
       <img class="user-avatar" src="{{$userComment->avatar}}" alt="">
-      <textarea data-id="{{$userComment->comment_id}}" class="user-comment" disabled>{{$userComment->text}}</textarea>
+      <textarea data-id="{{$userComment->commentId}}" class="user-comment" disabled>{{$userComment->text}}</textarea>
       @auth
-        @if ($userComment->user_id == Auth::user()->id)
+        @if ($userComment->userId == Auth::user()->id)
           <div class="button-panel">
             <a class="btn edit-comment">Edit</a>
             <a class="btn delete-comment">Delete</a>
@@ -104,6 +106,15 @@ $(document).ready(function() {
         let commentId = $(textarea).data('id');
         let commentText = $(textarea).val();
         let url = "http://gallery.test/comment/update";
+        $(extraButtons).remove();
+        $(textarea).prop('disabled', true);
+        $(textarea).css({'background-color' : 'transparent',
+        'cursor' : 'default',
+        'border' : '0'});
+        $(thisButton).removeClass('disable-anchor-click');
+        $(textarea).height(0);
+        let textHeight = $(textarea).get(0).scrollHeight;
+        $(textarea).height(textHeight);
         $.ajaxSetup({
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -116,15 +127,6 @@ $(document).ready(function() {
                  text : commentText},
           dataType: "json",
           success: function (data) {
-            $(extraButtons).remove();
-            $(textarea).prop('disabled', true);
-            $(textarea).css({'background-color' : 'transparent',
-            'cursor' : 'default',
-            'border' : '0'});
-            $(thisButton).removeClass('disable-anchor-click');
-            $(textarea).height(0);
-            let textHeight = $(textarea).get(0).scrollHeight;
-            $(textarea).height(textHeight);
             console.log('Success');
             console.log(data);
           },
@@ -155,6 +157,7 @@ $(document).ready(function() {
     let commentContainer = $(textarea).parent();
     let commentId = $(textarea).data('id');
     let url = "http://gallery.test/comment/delete";
+    $(commentContainer).remove();
     $.ajaxSetup({
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -166,7 +169,6 @@ $(document).ready(function() {
       data: {id : commentId},
       dataType: "json",
       success: function (data) {
-        $(commentContainer).remove();
         console.log('Success');
         console.log(data);
       },
@@ -178,13 +180,13 @@ $(document).ready(function() {
   });
   $('.favorite-add').click(function () {
     addFavorite(this,
-    '<i class="fa fa-star" aria-hidden="true"></i>Remove&nbsp;from&nbsp;favorites',
-    '<i class="fa fa-star-o" aria-hidden="true"></i>Add&nbsp;to&nbsp;favorites',);
+    '<i class="fa fa-star" aria-hidden="true"></i>&nbsp;Remove&nbsp;from&nbsp;favorites',
+    '<i class="fa fa-star-o" aria-hidden="true"></i>&nbsp;Add&nbsp;to&nbsp;favorites',);
   });
   $('.favorite-remove').click(function() {
     removeFavorite(this,
-    '<i class="fa fa-star-o" aria-hidden="true"></i>Add&nbsp;to&nbsp;favorites',
-    '<i class="fa fa-star" aria-hidden="true"></i>Remove&nbsp;from&nbsp;favorites');
+    '<i class="fa fa-star-o" aria-hidden="true"></i>&nbsp;Add&nbsp;to&nbsp;favorites',
+    '<i class="fa fa-star" aria-hidden="true"></i>&nbsp;Remove&nbsp;from&nbsp;favorites');
   });
 });
 

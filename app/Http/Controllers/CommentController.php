@@ -15,6 +15,7 @@ class CommentController extends Controller
       $comment->text = $request->text;
       $comment->gallery_entry_id = $request->gallery_entry_id;
       $comment->user_id = Auth::user()->id;
+      // Auth::user()->comments()->save($comment);
       $comment->save();
 
       $galleryEntry = GalleryEntry::find($request->gallery_entry_id);

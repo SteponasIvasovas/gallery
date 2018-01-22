@@ -26,9 +26,8 @@ class StoreGalleryEntryRequest extends FormRequest
       return [
         'image' => 'required',
         'title' => 'required',
-        'tags' => 'required|regex:/^#[a-zA-Z0-9_]+(?:[ ]#[a-zA-Z0-9_]+){0,5}$/',
-        'tagline' => 'max:100',
-        'about' => 'max:2000'
+        'tags' => 'required|regex:/^[a-zA-Z0-9_]+(?:[ ][a-zA-Z0-9_]+){0,10}$/',
+        'description' => 'max:2000'
       ];
     }
 }
