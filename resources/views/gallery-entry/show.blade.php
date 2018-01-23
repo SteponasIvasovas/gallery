@@ -77,7 +77,6 @@
 <script src="{{asset('js/jquery-3.2.1.min.js')}}"></script>
 <script src="{{asset('js/justifiedGallery.js')}}"></script>
 <script src="{{asset('js/script.js')}}"></script>
-<script src="{{asset('js/app.js') }}"></script>
 <script src="{{asset('js/profile.js') }}"></script>
 <script type="text/javascript">
 "use strict"

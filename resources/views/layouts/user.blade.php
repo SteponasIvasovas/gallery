@@ -3,8 +3,13 @@
   <div id="user-profile" style="min-width: 600px;">
     <div class="user-owner">
       <a href="{{route('user.profile', $user->id)}}"><img class="user-avatar" src="{{$user->avatar}}"></a>
+      <div class="image-change">
+        <label for="imgInp" class="btn">Change..</label>
+        <input type="file" id="imgInp" name="image">
+      </div>
       <span class="user-name"><a href="{{route('user.profile', $user->id)}}">{{$user->username}}</a></span>
-      <span class="user-tagline">Random user tagline{{$user->tagline}}</span>
+      <input id="user-tagline" type="text" value="{{$user->tagline}}" placeholder="--not specified--" disabled></input>
+      <button class="btn btn-primary edit-profile" type="button">Edit profile</button>
     </div>
     <div class="my-btn-panel btn-group-justified">
       <div class="btn-group">

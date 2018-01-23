@@ -588,16 +588,36 @@ body {
         color: black;
       }
     }
-    .user-tagline {
+    #user-tagline {
       position: absolute;
       left: 100px;
       bottom: 20px;
+      background-color: transparent;
+      border: 0;
+      // display: inline-block;
     }
-    .tags-container {
-      margin-left: 95px;
+    .edit-profile {
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
     }
-    .category-container {
-      margin-left: 95px;
+  }
+  .image-change {
+    display: none;
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    top: 10px;
+    background-color: rgba(47,55,54,0.5);
+    label {
+      line-height: 5;
+      margin-left: 8px;
+      padding: 0;
+      color: white;
+    }
+    #imgInp {
+      width: 75px;
+      display: none;
     }
   }
 }
@@ -729,17 +749,20 @@ body {
   margin-top: 20px;
   margin-left: 20px;
   margin-right: 20px;
+  label {
+    margin-bottom: 0;
+  }
   textarea,
   input,
   select {
     background-color: transparent;
     border: 0;
     display: inline-block;
+    width: 100%;
   }
   textarea {
     padding: 0;
     width: 100%;
-    overflow: hidden;
     resize: none;
     height: auto;
     cursor: default;
@@ -747,7 +770,13 @@ body {
   }
   #user-gender {
     -webkit-appearance: none;
-    -moz-appearance: none;
+    // -moz-appearance: none;
+  }
+  .profile-control {
+    margin-top: 10px;
+    .save-profile {
+      margin-right: 10px;
+    }
   }
 }
 #user-favorite-container {

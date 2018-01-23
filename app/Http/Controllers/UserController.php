@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\User;
 use App\GalleryEntry;
 use App\Favorite;
@@ -35,5 +36,35 @@ class UserController extends Controller
 
     public function profile(User $user) {
       return view('user.profile', compact('user'));
+    }
+    public function update(Request $request) {
+      // tagline : $(tagline).val()
+      // firstname : $(firstname).val(),
+      // lastname : $(lastname).val(),
+      // birthday : $(birthday).val(),
+      // country : $(country).val(),
+      // city : $(city).val(),
+      // gender : $(gender).val(),
+      // about : $(about).val()
+      $user = User::find(Auth::user()->id);
+      $user->firstname = $request->firstname;
+      $user->lastname = $request->lastname;
+      $user->gender = $request->gender;
+      $user->birthday = $request->birthday;
+      $user->country = $request->country;
+      $user->city = $request->city;
+
+      if ($request->tagline == "null") {
+        $user->tagline = null;
+      }
+      else {
+        $user->tagline = $request->tagline;
+      }
+
+      // $name = $request->file('avatar')->getClientOriginalName();
+
+      $user->about = $request->about;
+      $user->update();
+      echo json_encode($request);
     }
 }
