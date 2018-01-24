@@ -3,12 +3,15 @@
   <div id="user-profile" style="min-width: 600px;">
     <div class="user-owner">
       <a href="{{route('user.profile', $user->id)}}"><img class="user-avatar" src="{{$user->avatar}}"></a>
-      <div class="image-change">
+      <form class="avatar-change" action="{{route('user.avatarUpdate')}}" method="post" enctype="multipart/form-data">
+        {{ csrf_field() }}
         <label for="imgInp" class="btn">Change..</label>
         <input type="file" id="imgInp" name="image">
-      </div>
-      <span class="user-name"><a href="{{route('user.profile', $user->id)}}">{{$user->username}}</a></span>
-      <input id="user-tagline" type="text" value="{{$user->tagline}}" placeholder="--not specified--" disabled></input>
+      </form>
+      <span class="user-name">
+        <a href="{{route('user.profile', $user->id)}}">{{$user->username}}</a>
+      </span>
+      <input id="user-tagline" type="text" value="{{$user->tagline}}" placeholder="--not specified--" disabled>
       <button class="btn btn-primary edit-profile" type="button">Edit profile</button>
     </div>
     <div class="my-btn-panel btn-group-justified">

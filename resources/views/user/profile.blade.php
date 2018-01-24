@@ -42,30 +42,13 @@
 <script type="text/javascript">
 "use strict"
 $(document).ready(function() {
-  $(document).on('change', '#imgInp', function() {
-    console.log('change');
-    let input = $(this);
-    let label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-    input.trigger('fileselect', [label]);
-  });
-	$('#imgInp').on('fileselect', function(event, label) {
-    let input = $(this).parents('.input-group').find(':text');
-    let log = label;
-
-    if(input.length) {
-      input.val(log);
-    } else {
-      if(log) {
-        alert(log);
-      }
-    }
-	});
 	function readURL(input) {
     if (input.files && input.files[0]) {
       let reader = new FileReader();
 
       reader.onload = function (e) {
         $('.user-avatar').attr('src', e.target.result);
+        $('.avatar-change').submit();
       }
 
       reader.readAsDataURL(input.files[0]);
@@ -119,8 +102,8 @@ $(document).ready(function() {
     $(about).css(css);
     $(about).css({'cursor' : 'text', 'min-height' : '100px'});
     let oldAbout = $(about).val();
-    $(".image-change").css('display', 'block');
-    let oldAvatar = $('.user-avatar').prop('src');
+    // $(".avatar-change").css('display', 'block');
+    // let oldAvatar = $('.user-avatar').prop('src');
 
     let saveChanges = $("<button class='btn save-profile' type='button'>Save</button>");
     $('.profile-control').append(saveChanges);
@@ -156,19 +139,17 @@ $(document).ready(function() {
       $(about).height(0);
       let aboutHeight = $(about).get(0).scrollHeight;
       $(about).height(aboutHeight);
-      $(".image-change").css('display', 'none');
-
+      // $(".avatar-change").css('display', 'none');
 
       $.ajaxSetup({
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
       });
       $.ajax({
         type: "POST",
         url: url,
         data: {
-          // test : 'test'
           tagline : $(tagline).val(),
           firstname : $(firstname).val(),
           lastname : $(lastname).val(),
@@ -177,7 +158,6 @@ $(document).ready(function() {
           city : $(city).val(),
           gender : $(gender).val(),
           about : $(about).val(),
-          avatar : $('#imgInp').val()
         },
         dataType: "json",
         success: function (data) {
@@ -226,8 +206,8 @@ $(document).ready(function() {
       $(about).height(0);
       let aboutHeight = $(about).get(0).scrollHeight;
       $(about).height(aboutHeight);
-      $(".image-change").css('display', 'none');
-      $('.user-avatar').prop('src', oldAvatar);
+      // $(".avatar-change").css('display', 'none');
+      // $('.user-avatar').prop('src', oldAvatar);
     });
   });
 });

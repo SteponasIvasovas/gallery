@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use Auth;
 use App\User;
 use App\GalleryEntry;
 use App\Favorite;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -29,8 +31,6 @@ class UserController extends Controller
       ->where('favorites.user_id', $user->id)
       ->paginate(12);
 
-      // dd($favorites);
-
       return view('user.favorites', compact('user', 'favorites'));
     }
 
@@ -38,14 +38,6 @@ class UserController extends Controller
       return view('user.profile', compact('user'));
     }
     public function update(Request $request) {
-      // tagline : $(tagline).val()
-      // firstname : $(firstname).val(),
-      // lastname : $(lastname).val(),
-      // birthday : $(birthday).val(),
-      // country : $(country).val(),
-      // city : $(city).val(),
-      // gender : $(gender).val(),
-      // about : $(about).val()
       $user = User::find(Auth::user()->id);
       $user->firstname = $request->firstname;
       $user->lastname = $request->lastname;
@@ -61,10 +53,18 @@ class UserController extends Controller
         $user->tagline = $request->tagline;
       }
 
-      // $name = $request->file('avatar')->getClientOriginalName();
-
       $user->about = $request->about;
       $user->update();
       echo json_encode($request);
+    }
+    public function avatarUpdate(Request $request) {
+      $user = User::find(Auth::user()->id);
+      $name = $request->file('image')->getClientOriginalName();
+      $path = 'public/images/'.Auth::user()->id.'/';
+      $date = new DateTime();
+      $request->file('image')->storeAs($path, $date->getTimestamp().$name);
+      $user->avatar = $path.$date->getTimestamp().$name;
+      $user->update();
+      return view('user.profile', compact('user'));
     }
 }

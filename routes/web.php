@@ -23,6 +23,7 @@ Route::get('/user/{user}/gallery', 'UserController@gallery')->name('user.gallery
 Route::get('/user/{user}/favorites', 'UserController@favorites')->name('user.favorites');
 Route::get('/user/{user}', 'UserController@profile')->name('user.profile');
 Route::post('/user/update', 'UserController@update')->name('user.update');
+Route::post('/user/avatarUpdate', 'UserController@avatarUpdate')->name('user.avatarUpdate');
 //SearchController
 Route::get('/search', 'SearchController@search')->name('search');
 Route::get('/searchAdvanced', 'SearchController@searchAdvanced')->name('searchAdvanced');

@@ -43,6 +43,14 @@
       </div>
     </div>
     <div class="form-group">
+      <label for="img-category">Category</label>
+      <select id="img-category" class="form-control col-md-12" name="category">
+        @foreach ($categories as $category)
+          <option value="{{$category->id}}">{{$category->name}}</option>
+        @endforeach
+      </select>
+    </div>
+    <div class="form-group">
       <button type="submit" class="btn btn-success">Submit</button>
     </div>
   </form>

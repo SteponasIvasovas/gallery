@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use DateTime;
 use Auth;
+use App\Category;
 use App\User;
 use App\GalleryEntry;
 use App\Comment;
@@ -14,9 +15,6 @@ use Intervention\Image\ImageManager;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
-// use Illuminate\Support\Facades\DB;
-// use Illuminate\Support\Facades\Input;
-// use Intervention\Image\Facades\Image;
 
 class GalleryEntryController extends Controller
 {
@@ -39,7 +37,8 @@ class GalleryEntryController extends Controller
      */
     public function create()
     {
-      return view('gallery-entry.create');
+      $categories = Category::all();
+      return view('gallery-entry.create', compact('categories'));
     }
 
     /**
@@ -54,7 +53,8 @@ class GalleryEntryController extends Controller
 
       $galleryEntry->title = $request->title;
       $galleryEntry->description = $request->description;
-      $galleryEntry->tags = $request->tags;
+      $galleryEntry->tags = ' '.$request->tags.' ';
+      $galleryEntry->category_id = $request->category;
 
       $name = $request->file('image')->getClientOriginalName();
       $path = 'public/images/'.Auth::user()->id.'/';
