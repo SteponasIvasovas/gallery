@@ -6,8 +6,18 @@ $bg-lighter: rgba(47, 55, 54, 1);
 $text-white05: rgba(255, 255, 255, 0.5);
 $text-white075: rgba(255, 255, 255, 0.75);
 
-.nav-to-content-margin {
-  margin-top: 75px;
+@keyframes favorite-animation {
+  from {
+    top: 0px;
+  } to {
+    top: 100px;
+  }
+}
+
+.animation {
+  animation-name: favorite-animation;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
 }
 /*********************************************/
 /*********************************************/
@@ -96,43 +106,43 @@ body {
 /*********************************************/
 /*********************************************/
 /** gallery-entry/create.blade.php **/
-.my-error-message {
-  margin-bottom: 0px;
-}
-.btn-file {
-  position: relative;
-  overflow: hidden;
-}
-.btn-file input[type=file] {
-  position: absolute;
-  top: 0;
-  right: 0;
-  min-width: 100%;
-  min-height: 100%;
-  font-size: 100px;
-  text-align: right;
-  filter: alpha(opacity = 0);
-  opacity: 0;
-  outline: none;
-  background: white;
-  cursor: inherit;
-  display: block;
-}
-#img-upload{
-  width: 100%;
-}
-#gallery-entry-create-container {
+.gallery-entry-store-container {
   position: absolute;
   height: 100%;
   margin-top: 75px;
   #img-category {
     margin-bottom: 10px;
   }
-  // background-image: linear-gradient(to bottom, #FFFFFF 0%, #c4c4c4 100%);
+  .my-error-message {
+    margin-bottom: 0px;
+  }
+  .btn-file {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity = 0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+  }
+  #img-upload{
+    width: 100%;
+  }
 }
 /** gallery-entry/show-blade.php **/
 #gallery-entry-show-container {
   position: absolute;
+  width: 100%;
   margin-top: 85px;
   .image-container {
     position: relative;
@@ -140,50 +150,6 @@ body {
     transform: translateX(-50%);
     margin-bottom: 10px;
     text-align: center;
-    max-width: 800px;
-    max-height: 800px;
-    overflow: hidden;
-    img {
-      // max-height: 100%;
-    }
-    .favorite-button {
-      position: absolute;
-      top: 20px;
-      margin-left: 50%;
-      transform: translateX(-50%);
-      // margin-top: 10px;
-      // margin-bottom: 10px;
-      font-size: 15px;
-      font-weight: 800;
-      .favorite-remove {
-        opacity: 0.5;
-        background-color: red;
-        color: $text-white075;
-        &:hover {
-          opacity: 1;
-          background-color: #a00;
-          color: white;
-        }
-      }
-      .favorite-add {
-        opacity: 0.5;
-        background-color: green;
-        color: $text-white075;
-        &:hover {
-          opacity: 1;
-          background-color: #0a0;
-          color: white;
-        }
-      }
-      a {
-        text-decoration: none;
-        display: inline-block;
-        cursor: pointer;
-        padding: 10px;
-        border-radius: 20px;
-        transition: 0.25s all;
-      }
-    }
   }
   .image-description-container {
     background-color: rgba(47,55,54,0.2);
@@ -229,6 +195,37 @@ body {
         right: 20px;
         top: 60px;
       }
+      .favorite-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 15px;
+        font-weight: 800;
+        .favorite-remove {
+          background-color: red;
+          color: $text-white075;
+          &:hover {
+            background-color: #a00;
+            color: white;
+          }
+        }
+        .favorite-add {
+          background-color: green;
+          color: $text-white075;
+          &:hover {
+            background-color: #0a0;
+            color: white;
+          }
+        }
+        a {
+          text-decoration: none;
+          display: inline-block;
+          cursor: pointer;
+          padding: 10px;
+          border-radius: 20px;
+          transition: 0.25s all;
+        }
+      }
     }
     .entry-description {
       margin-left: 5px;
@@ -243,7 +240,6 @@ body {
     .user-avatar {
       width: 75px;
       height: 75px;
-      // border: 5px solid rgba(255, 255, 255, 0.5);
       float: left;
       margin-right: 10px;
       margin-left: 5px;
@@ -256,8 +252,7 @@ body {
     }
   }
   .user-comments-container {
-    // background-image: linear-gradient(to bottom, #FFFFFF 0%, #c4c4c4 100%);
-    // background-color: rgba(47, 55, 54, 0.1);
+    padding-bottom: 20px;
     padding-top: 10px;
     .comment-container {
       min-height: 150px;
@@ -293,8 +288,6 @@ body {
         top: 0;
       }
       .extra-buttons {
-        // position:absolute;
-        // bottom: 0;
         margin-top: 10px;
         margin-left: 90px;
       }
@@ -496,11 +489,25 @@ body {
         right: 0;
         padding: 5px 15px;
         font-size: 30px;
-        color: green;
-        background-color: rgba(0, 0, 0, 0.75);
+        background-color: rgba(0,0,0,0.75);
+        color: blue;
         opacity: 0;
         z-index: 5;
         cursor: pointer;
+      }
+      .favorite-remove {
+        transition: 0.25s all;
+        color: green;
+        &:hover {
+          color:red;
+        }
+      }
+      .favorite-add {
+        transition: 0.25s all;
+        color: red;
+        &:hover {
+          color:green;
+        }
       }
       h2 {
         z-index: 10;
@@ -687,11 +694,25 @@ body {
       right: 0;
       padding: 5px 15px;
       font-size: 30px;
+      background-color: rgba(0,0,0,0.75);
       color: green;
-      background-color: rgba(0, 0, 0, 0.75);
       opacity: 0;
       z-index: 5;
       cursor: pointer;
+    }
+    .favorite-remove {
+      transition: 0.25s all;
+      color: green;
+      &:hover {
+        color:red;
+      }
+    }
+    .favorite-add {
+      transition: 0.25s all;
+      color: red;
+      &:hover {
+        color:green;
+      }
     }
     h2 {
       z-index: 10;
@@ -768,6 +789,7 @@ body {
   margin-top: 20px;
   margin-left: 20px;
   margin-right: 20px;
+  margin-bottom: 20px;
   label {
     margin-bottom: 0;
   }
@@ -789,12 +811,30 @@ body {
   }
   #user-gender {
     -webkit-appearance: none;
-    // -moz-appearance: none;
   }
   .profile-control {
     margin-top: 10px;
     .save-profile {
       margin-right: 10px;
+    }
+  }
+  .profile-info {
+    float: left;
+    width: 50%;
+  }
+  .latest-image {
+    text-align: center;
+    max-width: 50%;
+    max-height: 400px;
+    overflow: hidden;
+    float: right;
+    width: 50%;
+    h2 {
+      margin-top: 0px;
+      text-align: center;
+    }
+    img {
+      max-width: 100%;
     }
   }
 }
@@ -849,6 +889,20 @@ body {
       opacity: 0;
       z-index: 5;
       cursor: pointer;
+    }
+    .favorite-remove {
+      transition: 0.25s all;
+      color: green;
+      &:hover {
+        color:red;
+      }
+    }
+    .favorite-add {
+      transition: 0.25s all;
+      color: red;
+      &:hover {
+        color:green;
+      }
     }
     h2 {
       z-index: 10;

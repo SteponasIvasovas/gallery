@@ -41,17 +41,20 @@
 			</div>
 			<button class="btn btn-secondary" type="submit">Search</button>
 		</div>
-		<h3>Categories</h3>
+		<h3><a data-target="#categories-panel" data-toggle="collapse">Categories</a></h3>
 		<hr>
-		<ol id="list-categories">
-			@foreach ($categories as $category)
-				<li><a href="{{ route('filterCategory', $category)}}">{{$category->name}}</a></li>
-			@endforeach
-		</ol>
+		<div id="categories-panel" class="collapse">
+			<ol id="list-categories">
+				@foreach ($categories as $category)
+					<li><a href="{{ route('filterCategory', $category)}}">{{$category->name}}</a></li>
+				@endforeach
+			</ol>
+		</div>
 	</form>
 
 </div>
 <div id="home-container">
+{{--
 	<div id="home-banner-container">
 		<img id="home-banner-image" alt="" src="{{ asset('images/banner.jpg')}}">
 		<div id="home-banner-info" class="text-center">
@@ -62,6 +65,7 @@
 			@endauth
 		</div>
 	</div>
+--}}
 	<div id="home-gallery-container" class="text-left">
 			@foreach ($galleryEntries as $galleryEntry)
 				<div class="home-gallery-entry-container text-left">
@@ -109,8 +113,6 @@
 <script type="text/javascript">
 	"use strict"
 	$(document).ready(function() {
-		// var jqueryObj = $;
-		// jqueryObj("#home-gallery-container").justifiedGallery();
 		//hide/unhide advanced search
 		$(".search-checks input[type='checkbox']").change(function() {
 			let searchBox = $(this).parent().next();
@@ -119,13 +121,14 @@
 			if (display == "none") {
 				$(searchBox).css('display', 'block');
 			} else {
-				$(searchBox).css({"display" : "none"});
+				$(searchBox).css('display', 'none');
 			}
 		});
 		$('.favorite-add').click(function () {
 			addFavorite(this,
 			'<i class="fa fa-star" aria-hidden="true"></i>',
 			'<i class="fa fa-star-o" aria-hidden="true"></i>');
+			// $(this).addClass('animation');
 		});
 		$('.favorite-remove').click(function() {
 			removeFavorite(this,
@@ -142,27 +145,7 @@
 	});
 	function resizeGalleryContainer() {
 		let windowHeight = $(window).height();
-		$(window).css('min-height', windowHeight)
 		$("#home-container").css('min-height', windowHeight);
 		$("#side-menu").css('min-height', windowHeight);
 	}
-
-	// $('.gallery-entry-image').each(function () {
-		// 	let width = $(this).width();
-		// 	let height = $(this).height();
-		// 	let ratio = width / height;
-		// 	console.log(width, height, ratio);
-		// 	if (ratio >= 2.5) {
-		// 		$(this).parent().css('min-width', '500px');
-		// 	} else if (ratio >= 2) {
-		// 		$(this).parent().css('min-width', '400px');
-		// 	} else if (ratio >= 1.5) {
-		// 		$(this).parent().css('min-width', '300px');
-		// 	} else if (ratio >= 1) {
-		// 		$(this).parent().css('min-width', '200px');
-		// 	} else {
-		// 		$(this).parent().css('min-width', '100px');
-		// 	}
-		// });
-
 </script>

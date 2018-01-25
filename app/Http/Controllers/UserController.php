@@ -19,7 +19,7 @@ class UserController extends Controller
       ->join('users', 'user_id', '=', 'users.id')
       ->where('user_id', '=', $user->id)
       ->orderBy('gallery_entries.created_at')
-      ->paginate(12);
+      ->paginate(20);
       return view('user.gallery', compact('user', 'galleryEntries'));
     }
     public function favorites(User $user) {
@@ -29,13 +29,14 @@ class UserController extends Controller
       ->join('users', 'user_id', '=', 'users.id')
       ->join('gallery_entries', 'gallery_entry_id', '=', 'gallery_entries.id')
       ->where('favorites.user_id', $user->id)
-      ->paginate(12);
+      ->paginate(20);
 
       return view('user.favorites', compact('user', 'favorites'));
     }
 
     public function profile(User $user) {
-      return view('user.profile', compact('user'));
+      $latest = GalleryEntry::where('user_id', $user->id)->orderBy('created_at')->first();
+      return view('user.profile', compact('user', 'latest'));
     }
     public function update(Request $request) {
       $user = User::find(Auth::user()->id);

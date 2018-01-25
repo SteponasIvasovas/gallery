@@ -33,7 +33,7 @@ class HomeController extends Controller
       'users.id as userId')
       ->join('users', 'user_id', '=', 'users.id')
       ->orderBy('galleryEntryId')
-      ->paginate(12);
+      ->paginate(20);
       $categories = Category::all();
       return view('home', compact('galleryEntries', 'categories'));
     }

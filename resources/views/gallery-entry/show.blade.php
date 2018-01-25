@@ -2,24 +2,9 @@
 @section('content')
 <div id="gallery-entry-show-container">
   <div class="image-container">
-    @auth
-      <div class="favorite-button">
-        @if (Auth::user()->id != $galleryEntry->userId)
-          @if (App\Favorite::where('user_id', Auth::user()->id)
-          ->where('gallery_entry_id', $galleryEntry->galleryEntryId)
-          ->get()->isEmpty())
-          <a data-user_id="{{Auth::user()->id}}" data-gallery_entry_id="{{$galleryEntry->galleryEntryId}}" class="favorite-add gallery-entry-fav">
-            <i class="fa fa-star-o" aria-hidden="true"></i>&nbsp;Add&nbsp;to&nbsp;favorites
-          </a>
-          @else
-          <a data-user_id="{{Auth::user()->id}}" data-gallery_entry_id="{{$galleryEntry->galleryEntryId}}" class="favorite-remove gallery-entry-fav">
-            <i class="fa fa-star" aria-hidden="true"></i>&nbsp;Remove&nbsp;from&nbsp;favorites
-          </a>
-          @endif
-        @endif
-      </div>
-    @endauth
     <img src="{{$galleryEntry->image}}" alt="">
+    @auth
+    @endauth
   </div>
   <div class="image-description-container">
     <div class="user-owner">
@@ -49,6 +34,20 @@
               {{ method_field('delete') }}
               {{ csrf_field() }}
           </form>
+        @else
+        <div class="favorite-button">
+          @if (App\Favorite::where('user_id', Auth::user()->id)
+          ->where('gallery_entry_id', $galleryEntry->galleryEntryId)
+          ->get()->isEmpty())
+            <a data-user_id="{{Auth::user()->id}}" data-gallery_entry_id="{{$galleryEntry->galleryEntryId}}" class="favorite-add gallery-entry-fav">
+              <i class="fa fa-star-o" aria-hidden="true"></i>&nbsp;Add&nbsp;to&nbsp;favorites
+            </a>
+          @else
+            <a data-user_id="{{Auth::user()->id}}" data-gallery_entry_id="{{$galleryEntry->galleryEntryId}}" class="favorite-remove gallery-entry-fav">
+              <i class="fa fa-star" aria-hidden="true"></i>&nbsp;Remove&nbsp;from&nbsp;favorites
+            </a>
+          @endif
+        </div>
         @endif
       @endauth
     </div>
@@ -57,13 +56,14 @@
   @auth
   <form class="new-comment-box" action="{{route('comment.post')}}" method="post">
     {{csrf_field()}}
-    <img class="user-avatar" src="{{Auth::user()->avatar}}" alt="">
+    <a href="{{route('user.profile', Auth::user()->id)}}">
+      <img class="user-avatar" src="{{Auth::user()->avatar}}" alt="">
+    </a>
     <input type="hidden" name="gallery_entry_id" value="{{$galleryEntry->galleryEntryId}}">
     <textarea class="new-comment-post" name="text" rows="4" cols="80"></textarea>
     <button class="btn" type="submit" name="button">Submit</button>
   </form>
   @endauth
-
   <div class="user-comments-container">
     @foreach ($userComments as $userComment)
     <div class="comment-container">
@@ -72,7 +72,7 @@
         Comment&nbsp;by&nbsp;<a href="{{ route('user.profile', $userComment->userId) }}">{{$userComment->username}}</a>&nbsp;posted&nbsp;on&nbsp;{{$userComment->created_at}}@if ($userComment->created_at != $userComment->updated_at)&nbsp;edited on {{$userComment->updated_at}}@endif
       </p>
       <hr>
-      <img class="user-avatar" src="{{$userComment->avatar}}" alt="">
+      <a href="{{route('user.profile', $userComment->userId)}}"><img class="user-avatar" src="{{$userComment->avatar}}" alt=""></a>
       <textarea data-id="{{$userComment->commentId}}" class="user-comment" disabled>{{$userComment->text}}</textarea>
       @auth
         @if ($userComment->userId == Auth::user()->id)
@@ -208,6 +208,22 @@ $(window).on('resize', function() {
 
 $(window).on('load', function() {
 	resizeGalleryEntryTextarea();
+  let width = $('.image-container img').width();
+  let height = $('.image-container img').height();
+  console.log(height, width);
+  let ratio = width / height;
+
+  if (ratio <= 1) {
+    $('.image-container').css('max-height', '800px');
+    if (height > 800) {
+      $('.image-container img').css('height', '100%');      
+    }
+  } else {
+    $('.image-container').css('max-width', '800px');
+    if (width > 800) {
+      $('.image-container img').css('width', '100%');
+    }
+  }
 });
 
 function resizeGalleryEntryTextarea() {

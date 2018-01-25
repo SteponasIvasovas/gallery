@@ -1,37 +1,47 @@
 @extends('layouts/user')
 @section('user-content')
   <div id="user-profile-container">
-    <div class="">
-      <label for="">Name: </label>
-      <input id="user-firstname" type="text" value="{{$user->firstname}}" placeholder="--not specified--" disabled></input>
+    <div class="col-md-6 profile-info">
+      <div>
+        <label for="user-firstname">Name: </label>
+        <input id="user-firstname" type="text" value="{{$user->firstname}}" placeholder="--not specified--" disabled></input>
+      </div>
+      <div>
+        <label for="user-lastname">Surname: </label>
+        <input id="user-lastname" type="text" value="{{$user->lastname}}" placeholder="--not specified--" disabled></input>
+      </div>
+      <div>
+        <label for="user-gender">Gender: </label>
+        <select id="user-gender" name="" disabled>
+          <option value="null" @if ($user->gender == null) selected @endif>--not specified--</option>
+          <option value="male" @if ($user->gender == "male") selected @endif>male</option>
+          <option value="female" @if ($user->gender == "female") selected @endif>female</option>
+        </select>
+      </div>
+      <div>
+        <label for="user-birthday">Birthday: </label>
+        <input id="user-birthday" type="text" value="{{$user->birthday}}" placeholder="--not specified--" disabled></input>
+      </div>
+      <div>
+        <label for="user-country">Country: </label>
+        <input id="user-country" type="text" value="{{$user->country}}" placeholder="--not specified--" disabled></input>
+      </div>
+      <div>
+        <label for="user-city">City: </label>
+        <input id="user-city" type="text" value="{{$user->city}}" placeholder="--not specified--" disabled></input>
+      </div>
+      <label for="user-about">About :</label>
+      <textarea id="user-about" placeholder="--not specified--" disabled>{{$user->about}}</textarea>
+      <div class="profile-control">
+      </div>
     </div>
-    <div class="">
-      <label for="">Surname: </label>
-      <input id="user-lastname" type="text" value="{{$user->lastname}}" placeholder="--not specified--" disabled></input>
-    </div>
-    <div class="">
-      <label for="">Gender: </label>
-      <select id="user-gender" name="" disabled>
-        <option value="null" @if ($user->gender == null) selected @endif>--not specified--</option>
-        <option value="male" @if ($user->gender == "male") selected @endif>male</option>
-        <option value="female" @if ($user->gender == "female") selected @endif>female</option>
-      </select>
-    </div>
-    <div class="">
-      <label for="">Birthday: </label>
-      <input id="user-birthday" type="text" value="{{$user->birthday}}" placeholder="--not specified--" disabled></input>
-    </div>
-    <div class="">
-      <label for="">Country: </label>
-      <input id="user-country" type="text" value="{{$user->country}}" placeholder="--not specified--" disabled></input>
-    </div>
-    <div class="">
-      <label for="">City: </label>
-      <input id="user-city" type="text" value="{{$user->city}}" placeholder="--not specified--" disabled></input>
-    </div>
-    <label for="">About :</label>
-    <textarea id="user-about" placeholder="--not specified--" disabled>{{$user->about}}</textarea>
-    <div class="profile-control">
+    <div class="col-md-6 latest-image">
+      @if ($latest != null)
+        <h2>LATEST ENTRY</h2>
+        <a href="{{route('gallery-entry.show', $latest->id)}}">
+          <img src="{{$latest->image}}" alt="">
+        </a>
+      @endif
     </div>
   </div>
 @endsection
@@ -58,9 +68,6 @@ $(document).ready(function() {
     readURL(this);
 	});
 
-  $('#user-about').height(0);
-  let textHeight = $('#user-about').get(0).scrollHeight;
-  $('#user-about').height(textHeight);
 
   $(".edit-profile").click(function () {
     console.log('click');
@@ -210,5 +217,17 @@ $(document).ready(function() {
       // $('.user-avatar').prop('src', oldAvatar);
     });
   });
+});
+
+$(window).on('load', function() {
+  $('#user-about').height(0);
+  let textHeight = $('#user-about').get(0).scrollHeight;
+  $('#user-about').height(textHeight);
+});
+
+$(window).on('resize', function() {
+  $('#user-about').height(0);
+  let textHeight = $('#user-about').get(0).scrollHeight;
+  $('#user-about').height(textHeight);
 });
 </script>

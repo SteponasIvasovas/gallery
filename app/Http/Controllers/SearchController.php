@@ -16,7 +16,7 @@ class SearchController extends Controller
     $galleryEntries = GalleryEntry::select('*', 'gallery_entries.id as galleryEntryId', 'users.id as userId')
     ->join('users', 'user_id', '=', 'users.id')
     ->where('title', 'like', '%'.$request->title.'%')
-    ->paginate(12);
+    ->paginate(20);
     $categories = Category::all();
 
     return view('home', compact('galleryEntries', 'categories'));
@@ -51,7 +51,7 @@ class SearchController extends Controller
       });
     }
 
-    $galleryEntries = $query->paginate(12);
+    $galleryEntries = $query->paginate(20);
     // $galleryEntries = $this->paginate($galleryEntries, $perPage = 10, $page = null, $options = [], $path = 'searchAdvanced');
     return view('home', compact('galleryEntries', 'categories'));
   }

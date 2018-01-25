@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div id="gallery-entry-create-container" >
+<div class="gallery-entry-store-container" >
   <form class="col-md-6" action="{{route('gallery-entry.update', $galleryEntry)}}" method="post" enctype="multipart/form-data">
     {{ method_field('put') }}
     {{ csrf_field() }}

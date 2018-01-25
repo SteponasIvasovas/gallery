@@ -1,15 +1,15 @@
 function addFavorite(e, el, el2) {
 	let url = '/favorite/add';
 	let thisButton = e;
-	let galleryEntryId = $(e).data('gallery_entry_id');
-	let userId = $(e).data('user_id');
+	let galleryEntryId = $(thisButton).data('gallery_entry_id');
+	let userId = $(thisButton).data('user_id');
 	console.log(galleryEntryId, userId);
 	$(thisButton).removeClass('favorite-add');
 	$(thisButton).addClass('favorite-remove');
 	$(thisButton).html(el);
 	$(thisButton).off('click');
 	$(thisButton).on('click', function() {
-		removeFavorite(thisButton, el2);
+		removeFavorite(thisButton, el2, el);
 	});
 	$.ajaxSetup({
 		headers: {
@@ -35,14 +35,14 @@ function addFavorite(e, el, el2) {
 function removeFavorite(e, el, el2) {
 	let url = '/favorite/remove';
 	let thisButton = e;
-	let galleryEntryId = $(e).data('gallery_entry_id');
-	let userId = $(e).data('user_id');
+	let galleryEntryId = $(thisButton).data('gallery_entry_id');
+	let userId = $(thisButton).data('user_id');
 	$(thisButton).removeClass('favorite-remove');
 	$(thisButton).addClass('favorite-add');
 	$(thisButton).html(el);
 	$(thisButton).off('click');
 	$(thisButton).on('click', function() {
-		addFavorite(thisButton, el2);
+		addFavorite(thisButton, el2, el);
 	});
 	$.ajaxSetup({
 		headers: {

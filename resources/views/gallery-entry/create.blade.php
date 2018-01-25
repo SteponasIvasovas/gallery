@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div id="gallery-entry-create-container" >
+<div class="gallery-entry-store-container" >
   <form class="col-md-6" action="{{route('gallery-entry.store')}}" method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
     <h2>Submit new gallery entry</h2>
@@ -68,7 +68,6 @@ $(document).ready(function() {
     let label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
     input.trigger('fileselect', [label]);
   });
-
 	$('.btn-file :file').on('fileselect', function(event, label) {
     let input = $(this).parents('.input-group').find(':text');
     let log = label;
@@ -92,10 +91,8 @@ $(document).ready(function() {
       reader.readAsDataURL(input.files[0]);
     }
 	}
-
 	$("#imgInp").change(function(){
     readURL(this);
 	});
-
 });
 </script>
