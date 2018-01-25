@@ -2,24 +2,24 @@
 @section('content')
 <div id="gallery-entry-show-container">
   <div class="image-container">
-    <img src="{{$galleryEntry->image}}" alt="">
     @auth
-    <div class="favorite-button">
+      <div class="favorite-button">
         @if (Auth::user()->id != $galleryEntry->userId)
           @if (App\Favorite::where('user_id', Auth::user()->id)
           ->where('gallery_entry_id', $galleryEntry->galleryEntryId)
           ->get()->isEmpty())
-            <a data-user_id="{{Auth::user()->id}}" data-gallery_entry_id="{{$galleryEntry->galleryEntryId}}" class="favorite-add gallery-entry-fav">
-              <i class="fa fa-star-o" aria-hidden="true"></i>&nbsp;Add&nbsp;to&nbsp;favorites
-            </a>
+          <a data-user_id="{{Auth::user()->id}}" data-gallery_entry_id="{{$galleryEntry->galleryEntryId}}" class="favorite-add gallery-entry-fav">
+            <i class="fa fa-star-o" aria-hidden="true"></i>&nbsp;Add&nbsp;to&nbsp;favorites
+          </a>
           @else
-            <a data-user_id="{{Auth::user()->id}}" data-gallery_entry_id="{{$galleryEntry->galleryEntryId}}" class="favorite-remove gallery-entry-fav">
-              <i class="fa fa-star" aria-hidden="true"></i>&nbsp;Remove&nbsp;from&nbsp;favorites
-            </a>
+          <a data-user_id="{{Auth::user()->id}}" data-gallery_entry_id="{{$galleryEntry->galleryEntryId}}" class="favorite-remove gallery-entry-fav">
+            <i class="fa fa-star" aria-hidden="true"></i>&nbsp;Remove&nbsp;from&nbsp;favorites
+          </a>
           @endif
         @endif
-    </div>
+      </div>
     @endauth
+    <img src="{{$galleryEntry->image}}" alt="">
   </div>
   <div class="image-description-container">
     <div class="user-owner">
@@ -38,6 +38,19 @@
           <a href="{{route('filterCategory', App\Category::find($galleryEntry->category_id))}}">{{App\Category::find($galleryEntry->category_id)->name}}</a>
         @endif
       </div>
+      @auth
+        @if (Auth::user()->id == $galleryEntry->userId)
+          <a href="{{route('gallery-entry.edit', $galleryEntry->galleryEntryId)}}" class="btn btn-primary edit-entry">Edit image</a>
+          <a onclick=" if (confirm('Are you sure?')) {
+                          event.preventDefault();
+                          document.getElementById('delete-entry-form').submit();
+                        }" class="btn btn-primary delete-entry" >Delete image</a>
+          <form id="delete-entry-form" action="{{route('gallery-entry.destroy', $galleryEntry->galleryEntryId)}}" method="POST" style="display: none;">
+              {{ method_field('delete') }}
+              {{ csrf_field() }}
+          </form>
+        @endif
+      @endauth
     </div>
     <p class="entry-description">{{$galleryEntry->description}}</p>
   </div>

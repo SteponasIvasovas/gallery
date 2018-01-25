@@ -147,24 +147,30 @@ body {
       // max-height: 100%;
     }
     .favorite-button {
+      position: absolute;
+      top: 20px;
       margin-left: 50%;
       transform: translateX(-50%);
-      margin-top: 10px;
-      margin-bottom: 10px;
+      // margin-top: 10px;
+      // margin-bottom: 10px;
       font-size: 15px;
       font-weight: 800;
       .favorite-remove {
+        opacity: 0.5;
         background-color: red;
         color: $text-white075;
         &:hover {
+          opacity: 1;
           background-color: #a00;
           color: white;
         }
       }
       .favorite-add {
+        opacity: 0.5;
         background-color: green;
         color: $text-white075;
         &:hover {
+          opacity: 1;
           background-color: #0a0;
           color: white;
         }
@@ -212,6 +218,16 @@ body {
       }
       .category-container {
         margin-left: 95px;
+      }
+      .edit-entry {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+      }
+      .delete-entry {
+        position: absolute;
+        right: 20px;
+        top: 60px;
       }
     }
     .entry-description {

@@ -97,7 +97,9 @@ class GalleryEntryController extends Controller
      */
     public function edit(GalleryEntry $galleryEntry)
     {
-        //
+        $galleryEntry->tags = trim($galleryEntry->tags);
+        $categories = Category::all();
+        return view('gallery-entry.edit', compact('galleryEntry', 'categories'));
     }
 
     /**
@@ -107,9 +109,29 @@ class GalleryEntryController extends Controller
      * @param  \App\GalleryEntry  $galleryEntry
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, GalleryEntry $galleryEntry)
+    public function update(StoreGalleryEntryRequest $request, GalleryEntry $galleryEntry)
     {
-        //
+      if ($request->image != null) {
+        $oldPath = 'public/images/'.Auth::user()->id.'/';
+
+        if(!empty($galleryEntry->image)) {
+          Storage::delete($oldPath.$galleryEntry->image);
+        }
+
+        $name = $request->file('image')->getClientOriginalName();
+        $path = 'public/images/'.Auth::user()->id.'/';
+        $date = new DateTime();
+        $request->file('image')->storeAs($path, $date->getTimestamp().$name);
+        $galleryEntry->image = $path.$date->getTimestamp().$name;
+      }
+
+      $galleryEntry->title = $request->title;
+      $galleryEntry->description = $request->description;
+      $galleryEntry->tags = ' '.$request->tags.' ';
+      $galleryEntry->category_id = $request->category;
+      $galleryEntry->update();
+
+      return redirect('gallery-entry/'.$galleryEntry->id)->with(['message' => 'Gallery entry successfully edited']);
     }
 
     /**
@@ -120,6 +142,12 @@ class GalleryEntryController extends Controller
      */
     public function destroy(GalleryEntry $galleryEntry)
     {
-        //
+        // dd($galleryEntry);
+        if (!empty($galleryEntry->image)) {
+          $oldPath = 'public/images/'.Auth::user()->id.'/';
+          Storage::delete($oldPath.$galleryEntry->image);
+        }
+        $galleryEntry->delete();
+        return redirect('/')->with(['message' => 'Gallery entry successfully deleted']);
     }
 }

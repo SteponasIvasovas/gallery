@@ -65,6 +65,6 @@ class UserController extends Controller
       $request->file('image')->storeAs($path, $date->getTimestamp().$name);
       $user->avatar = $path.$date->getTimestamp().$name;
       $user->update();
-      return view('user.profile', compact('user'));
+      return redirect('user/'.Auth::user()->id);
     }
 }

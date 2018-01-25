@@ -2,7 +2,8 @@
 
 @section('content')
 <div id="gallery-entry-create-container" >
-  <form class="col-md-6" action="{{route('gallery-entry.store')}}" method="post" enctype="multipart/form-data">
+  <form class="col-md-6" action="{{route('gallery-entry.update', $galleryEntry)}}" method="post" enctype="multipart/form-data">
+    {{ method_field('put') }}
     {{ csrf_field() }}
     <h2>Submit new gallery entry</h2>
     @if ($errors->count() > 0)
@@ -20,33 +21,33 @@
             Browse… <input type="file" id="imgInp" name="image">
           </span>
         </span>
-        <input type="text" placeholder="Choose file" class="form-control" readonly>
+        <input type="text" placeholder="Choose file" class="form-control" value="{{$galleryEntry->image}}" readonly>
       </div>
-      <img id='img-upload'/>
+      <img id='img-upload' src="{{$galleryEntry->image}}"/>
     </div>
     <div class="form-group">
       <label for="img-title">Title</label>
       <div class="input-group col-md-12">
-        <input id="img-title" type="text" placeholder="Image title" class="form-control" name="title" value="">
+        <input id="img-title" type="text" placeholder="Image title" class="form-control" name="title" value="{{$galleryEntry->title}}">
       </div>
     </div>
     <div class="form-group">
       <label for="img-description">Description</label>
       <div class="input-group col-md-12">
-        <textarea id="img-description" placeholder="Image description" class="form-control" name="description" rows="8" cols="80"></textarea>
+        <textarea id="img-description" placeholder="Image description" class="form-control" name="description" rows="8" cols="80">{{$galleryEntry->description}}</textarea>
       </div>
     </div>
     <div class="form-group">
       <label for="img-tags">Tags</label>
       <div class="input-group col-md-12">
-        <input id="img-tags" type="text" placeholder="Image tags separated by spaces (up to max 10 tags)" class="form-control" name="tags" value="">
+        <input id="img-tags" type="text" placeholder="Image tags separated by spaces (up to max 10 tags)" class="form-control" name="tags" value="{{$galleryEntry->tags}}">
       </div>
     </div>
     <div class="form-group">
       <label for="img-category">Category</label>
       <select id="img-category" class="form-control col-md-12" name="category">
         @foreach ($categories as $category)
-          <option value="{{$category->id}}">{{$category->name}}</option>
+          <option value="{{$category->id}}" @if ($galleryEntry->category_id == $category->id) selected @endif>{{$category->name}}</option>
         @endforeach
       </select>
     </div>

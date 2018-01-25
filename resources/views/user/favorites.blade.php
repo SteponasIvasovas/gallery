@@ -46,6 +46,21 @@
 <script type="text/javascript">
 "use strict"
 $(document).ready(function() {
+	function readURL(input) {
+    if (input.files && input.files[0]) {
+      let reader = new FileReader();
+
+      reader.onload = function (e) {
+        $('.user-avatar').attr('src', e.target.result);
+        $('.avatar-change').submit();
+      }
+
+      reader.readAsDataURL(input.files[0]);
+    }
+	}
+	$("#imgInp").change(function(){
+    readURL(this);
+	});
   $('.favorite-add').click(function () {
     addFavorite(this,
     '<i class="fa fa-star" aria-hidden="true"></i>',
