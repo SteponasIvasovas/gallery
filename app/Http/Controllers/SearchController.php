@@ -32,9 +32,11 @@ class SearchController extends Controller
 
     if (isset($request->as_tags_check)) {
       $query = $query->where(function ($q) use ($request) {
-        $tags = explode(" ", $request->as_tags);
-        foreach($tags as $tag) {
-          $q->orWhere('tags', 'like', '% '.$tag.' %');
+        if ($request->as_tags != null) {
+          $tags = explode(" ", $request->as_tags);
+          foreach($tags as $tag) {
+            $q->orWhere('tags', 'like', '% '.$tag.' %');
+          }          
         }
       });
     }
@@ -45,8 +47,10 @@ class SearchController extends Controller
 
     if (isset($request->as_category_check)) {
       $query = $query->where(function ($q) use ($request) {
-        foreach($request->as_category as $category) {
-          $q->orWhere('category_id', '=', $category);
+        if ($request->as_category != null) {
+          foreach($request->as_category as $category) {
+            $q->orWhere('category_id', '=', $category);
+          }
         }
       });
     }
